@@ -1,0 +1,3618 @@
+{
+    "type": "MySQLNotebook",
+    "version": "1.0",
+    "caption": "DB Notebook",
+    "content": "\\about\nCREATE DATABASE ecommerce2;\nuse ecommerce2;\nshow DATABASES;\nuse ecommerce2;\nSELECT * FROM customers\n  ORDER BY customer_id\n  LIMIT 10;\nSELECT * FROM products\n  WHERE price > 50\n  ORDER BY price DESC;\nSELECT COUNT(*) as total_customers,\n         AVG(YEAR(CURDATE()) - YEAR(date_of_birth)) as avg_age\n  FROM customers\n  WHERE date_of_birth IS NOT NULL;\nSELECT c.customer_id, c.customer_name, c.email,\n         a.address_line_1, a.address_line_2, a.city, a.state, a.postal_code\n  FROM customers c\n  INNER JOIN addresses a ON c.customer_id = a.customer_id\n  ORDER BY c.customer_name;\nSELECT c.customer_id, c.customer_name, c.email,\n         a.address_line_1, a.city, a.state\n  FROM customers c\n  LEFT JOIN addresses a ON c.customer_id = a.customer_id\n  ORDER BY c.customer_name;\nSELECT a.address_id, a.address_line_1, a.city, a.state,\n         rt.address_type_description\n  FROM addresses a\n  JOIN ref_address_types rt ON a.address_type_code = rt.address_type_code\n  ORDER BY a.city;\nSELECT s.supplier_name,\n         COUNT(p.product_id) as product_count,\n         AVG(p.price) as avg_price,\n         MIN(p.price) as min_price,\n         MAX(p.price) as max_price\n  FROM suppliers s\n  LEFT JOIN products p ON s.supplier_id = p.supplier_id\n  GROUP BY s.supplier_id, s.supplier_name\n  ORDER BY product_count DESC;\nSELECT product_name, price, product_description\n  FROM products\n  WHERE supplier_id IN (\n      SELECT supplier_id\n      FROM suppliers\n      WHERE supplier_city = 'New York'\n  );\nSELECT c.customer_name,\n         COUNT(a.address_id) as total_addresses,\n         GROUP_CONCAT(DISTINCT rt.address_type_description) as address_types\n  FROM customers c\n  LEFT JOIN addresses a ON c.customer_id = a.customer_id\n  LEFT JOIN ref_address_types rt ON a.address_type_code = rt.address_type_code\n  GROUP BY c.customer_id, c.customer_name\n  HAVING total_addresses > 1\n  ORDER BY total_addresses DESC;\nSELECT product_name, price, supplier_id,\n         CASE\n             WHEN price > 100 THEN 'Expensive'\n             WHEN price > 50 THEN 'Moderate'\n             WHEN price > 20 THEN 'Affordable'\n             ELSE 'Budget'\n         END as price_category\n  FROM products\n  ORDER BY price DESC;\nSELECT s.supplier_name, s.supplier_city, s.supplier_phone,\n         COUNT(p.product_id) as products_supplied,\n         AVG(p.price) as avg_product_price,\n         SUM(p.price) as total_inventory_value\n  FROM suppliers s\n  LEFT JOIN products p ON s.supplier_id = p.supplier_id\n  GROUP BY s.supplier_id, s.supplier_name, s.supplier_city, s.supplier_phone\n  ORDER BY products_supplied DESC, total_inventory_value DESC;\nSELECT state, city,\n         COUNT(DISTINCT c.customer_id) as customer_count,\n         COUNT(a.address_id) as total_addresses\n  FROM addresses a\n  JOIN customers c ON a.customer_id = c.customer_id\n  GROUP BY state, city\n  ORDER BY customer_count DESC, city;\nSELECT customer_id, customer_name, customer_phone, email\n  FROM customers c\n  WHERE NOT EXISTS (\n      SELECT 1\n      FROM addresses a\n      WHERE a.customer_id = c.customer_id\n  );\nSELECT c.customer_name, c.email, c.customer_phone,\n         a.address_line_1, a.city, a.state, a.postal_code,\n         rt.address_type_description\n  FROM customers c\n  LEFT JOIN addresses a ON c.customer_id = a.customer_id\n  LEFT JOIN ref_address_types rt ON a.address_type_code = rt.address_type_code\n  ORDER BY c.customer_name, rt.address_type_description;\nCREATE VIEW customer_summary AS\n  SELECT c.customer_id, c.customer_name, c.email, c.customer_phone,\n         COUNT(a.address_id) as address_count,\n         GROUP_CONCAT(DISTINCT a.city) as cities_lived,\n         GROUP_CONCAT(DISTINCT rt.address_type_description) as address_types\n  FROM customers c\n  LEFT JOIN addresses a ON c.customer_id = a.customer_id\n  LEFT JOIN ref_address_types rt ON a.address_type_code = rt.address_type_code\n  GROUP BY c.customer_id, c.customer_name, c.email, c.customer_phone;\nSELECT * FROM customer_summary\n  WHERE address_count > 1\n  ORDER BY address_count DESC;\n",
+    "options": {
+        "tabSize": 4,
+        "indentSize": 4,
+        "insertSpaces": true,
+        "defaultEOL": "LF",
+        "trimAutoWhitespace": true
+    },
+    "viewState": {
+        "cursorState": [
+            {
+                "inSelectionMode": false,
+                "selectionStart": {
+                    "lineNumber": 102,
+                    "column": 70
+                },
+                "position": {
+                    "lineNumber": 102,
+                    "column": 70
+                }
+            }
+        ],
+        "viewState": {
+            "scrollLeft": 0,
+            "firstPosition": {
+                "lineNumber": 94,
+                "column": 1
+            },
+            "firstPositionDeltaTop": 149
+        },
+        "contributionsState": {
+            "editor.contrib.folding": {},
+            "editor.contrib.wordHighlighter": false
+        }
+    },
+    "contexts": [
+        {
+            "state": {
+                "start": 1,
+                "end": 1,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "content": "Welcome to the MySQL Shell - DB Notebook.\n\nPress Ctrl+Enter to execute the code block.\n\nExecute \\sql to switch to SQL, \\js to JavaScript and \\ts to TypeScript mode.\nExecute \\help or \\? for help;",
+                            "language": "ansi"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 6
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 2,
+                "end": 2,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "index": 0,
+                            "resultId": "7b6d6d90-4e54-42f1-82fe-9c212a737133",
+                            "content": "OK, 1 row affected in 41.565ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 27
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 27,
+                            "length": 0
+                        },
+                        "contentStart": 26,
+                        "state": 3
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 3,
+                "end": 3,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "index": 0,
+                            "resultId": "47ea2f07-52ac-4a55-ac9d-bff49a7f8c68",
+                            "content": "OK, 0 records retrieved in 0.924ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 15
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 4,
+                "end": 4,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "4e35979b-d0aa-4ab3-dada-b8f4ba042d8c"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 15
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "65e00ea0-8fa9-4833-c1e1-a597e2232a34",
+                    "resultId": "4e35979b-d0aa-4ab3-dada-b8f4ba042d8c",
+                    "rows": [
+                        {
+                            "0": "ecommerce"
+                        },
+                        {
+                            "0": "ecommerce2"
+                        },
+                        {
+                            "0": "g09ds1hw"
+                        },
+                        {
+                            "0": "g09ds2"
+                        },
+                        {
+                            "0": "g09ds4"
+                        },
+                        {
+                            "0": "go9ds3"
+                        },
+                        {
+                            "0": "information_schema"
+                        },
+                        {
+                            "0": "mysql"
+                        },
+                        {
+                            "0": "performance_schema"
+                        },
+                        {
+                            "0": "sakila"
+                        },
+                        {
+                            "0": "sys"
+                        },
+                        {
+                            "0": "techsparx_s4"
+                        },
+                        {
+                            "0": "world"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "Database",
+                            "field": "0",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 13 records retrieved in 1.32ms"
+                    },
+                    "totalRowCount": 13,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "show DATABASES",
+                    "updatable": false
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 5,
+                "end": 5,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "index": 0,
+                            "resultId": "dd7e67be-bd04-4ef6-d08d-c445e154a8fa",
+                            "content": "OK, 0 records retrieved in 0.577ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 15
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 15,
+                            "length": 0
+                        },
+                        "contentStart": 14,
+                        "state": 3
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 6,
+                "end": 8,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "8e77b006-e73f-4544-9d64-3d5505dda86a"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 58
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "65e00ea0-8fa9-4833-c1e1-a597e2232a34",
+                    "resultId": "8e77b006-e73f-4544-9d64-3d5505dda86a",
+                    "rows": [
+                        {
+                            "0": 1,
+                            "1": "John Smith",
+                            "2": "555-1001",
+                            "3": "john.smith@email.com",
+                            "4": "1985-03-15",
+                            "5": "2023-01-15"
+                        },
+                        {
+                            "0": 2,
+                            "1": "Sarah Johnson",
+                            "2": "555-1002",
+                            "3": "sarah.j@email.com",
+                            "4": "1990-07-22",
+                            "5": "2023-02-20"
+                        },
+                        {
+                            "0": 3,
+                            "1": "Michael Brown",
+                            "2": "555-1003",
+                            "3": "mike.brown@email.com",
+                            "4": "1988-11-08",
+                            "5": "2023-01-30"
+                        },
+                        {
+                            "0": 4,
+                            "1": "Emily Davis",
+                            "2": "555-1004",
+                            "3": "emily.davis@email.com",
+                            "4": "1992-05-12",
+                            "5": "2023-03-10"
+                        },
+                        {
+                            "0": 5,
+                            "1": "David Wilson",
+                            "2": "555-1005",
+                            "3": "david.wilson@email.com",
+                            "4": "1987-09-25",
+                            "5": "2023-02-05"
+                        },
+                        {
+                            "0": 6,
+                            "1": "Lisa Anderson",
+                            "2": "555-1006",
+                            "3": "lisa.anderson@email.com",
+                            "4": "1991-12-03",
+                            "5": "2023-04-18"
+                        },
+                        {
+                            "0": 7,
+                            "1": "Robert Taylor",
+                            "2": "555-1007",
+                            "3": "robert.taylor@email.com",
+                            "4": "1989-08-17",
+                            "5": "2023-03-25"
+                        },
+                        {
+                            "0": 8,
+                            "1": "Jennifer Martinez",
+                            "2": "555-1008",
+                            "3": "jen.martinez@email.com",
+                            "4": "1993-04-28",
+                            "5": "2023-05-12"
+                        },
+                        {
+                            "0": 9,
+                            "1": "Christopher Lee",
+                            "2": "555-1009",
+                            "3": "chris.lee@email.com",
+                            "4": "1986-10-14",
+                            "5": "2023-01-08"
+                        },
+                        {
+                            "0": 10,
+                            "1": "Amanda White",
+                            "2": "555-1010",
+                            "3": "amanda.white@email.com",
+                            "4": "1994-06-19",
+                            "5": "2023-06-02"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "customer_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": true,
+                            "nullable": false,
+                            "autoIncrement": true
+                        },
+                        {
+                            "title": "customer_name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "customer_phone",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": null
+                        },
+                        {
+                            "title": "email",
+                            "field": "3",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": null
+                        },
+                        {
+                            "title": "date_of_birth",
+                            "field": "4",
+                            "dataType": {
+                                "type": 27,
+                                "needsQuotes": true
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": null
+                        },
+                        {
+                            "title": "registration_date",
+                            "field": "5",
+                            "dataType": {
+                                "type": 27,
+                                "needsQuotes": true
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": "curdate()"
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 10 records retrieved in 0.887ms"
+                    },
+                    "totalRowCount": 10,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT * FROM customers\n  ORDER BY customer_id\n  LIMIT 10",
+                    "updatable": true,
+                    "fullTableName": "customers"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 9,
+                "end": 11,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "4f2ac9fa-8a32-4c71-c4dc-de031b324732"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 64
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 64,
+                            "length": 0
+                        },
+                        "contentStart": 63,
+                        "state": 3
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "65e00ea0-8fa9-4833-c1e1-a597e2232a34",
+                    "resultId": "4f2ac9fa-8a32-4c71-c4dc-de031b324732",
+                    "rows": [
+                        {
+                            "0": 1,
+                            "1": "Laptop Pro 15",
+                            "2": "High-performance laptop with 15-inch display",
+                            "3": "1299.99",
+                            "4": 25,
+                            "5": 1,
+                            "6": "Electronics",
+                            "7": "2025-09-26"
+                        },
+                        {
+                            "0": 4,
+                            "1": "4K Monitor",
+                            "2": "27-inch 4K UHD monitor with HDR support",
+                            "3": "399.99",
+                            "4": 30,
+                            "5": 2,
+                            "6": "Electronics",
+                            "7": "2025-09-26"
+                        },
+                        {
+                            "0": 10,
+                            "1": "Office Chair",
+                            "2": "Ergonomic office chair with lumbar support",
+                            "3": "299.99",
+                            "4": 15,
+                            "5": 4,
+                            "6": "Furniture",
+                            "7": "2025-09-26"
+                        },
+                        {
+                            "0": 5,
+                            "1": "Designer Jacket",
+                            "2": "Premium leather jacket in black",
+                            "3": "249.99",
+                            "4": 20,
+                            "5": 3,
+                            "6": "Fashion",
+                            "7": "2025-09-26"
+                        },
+                        {
+                            "0": 8,
+                            "1": "Bluetooth Headphones",
+                            "2": "Noise-canceling wireless headphones",
+                            "3": "199.99",
+                            "4": 45,
+                            "5": 2,
+                            "6": "Electronics",
+                            "7": "2025-09-26"
+                        },
+                        {
+                            "0": 14,
+                            "1": "Winter Coat",
+                            "2": "Warm winter coat with hood",
+                            "3": "179.99",
+                            "4": 30,
+                            "5": 3,
+                            "6": "Fashion",
+                            "7": "2025-09-26"
+                        },
+                        {
+                            "0": 12,
+                            "1": "Fitness Tracker",
+                            "2": "Smart fitness tracker with heart rate monitor",
+                            "3": "149.99",
+                            "4": 35,
+                            "5": 5,
+                            "6": "Electronics",
+                            "7": "2025-09-26"
+                        },
+                        {
+                            "0": 6,
+                            "1": "Running Shoes",
+                            "2": "Professional running shoes for athletes",
+                            "3": "129.99",
+                            "4": 60,
+                            "5": 5,
+                            "6": "Sports",
+                            "7": "2025-09-26"
+                        },
+                        {
+                            "0": 15,
+                            "1": "Car Battery",
+                            "2": "12V automotive battery with 3-year warranty",
+                            "3": "119.99",
+                            "4": 20,
+                            "5": 7,
+                            "6": "Automotive",
+                            "7": "2025-09-26"
+                        },
+                        {
+                            "0": 3,
+                            "1": "Gaming Keyboard",
+                            "2": "Mechanical gaming keyboard with RGB lighting",
+                            "3": "89.99",
+                            "4": 75,
+                            "5": 2,
+                            "6": "Electronics",
+                            "7": "2025-09-26"
+                        },
+                        {
+                            "0": 13,
+                            "1": "Cooking Pan Set",
+                            "2": "Non-stick cooking pan set of 3",
+                            "3": "89.99",
+                            "4": 25,
+                            "5": 4,
+                            "6": "Home",
+                            "7": "2025-09-26"
+                        },
+                        {
+                            "0": 7,
+                            "1": "Coffee Maker",
+                            "2": "Automatic drip coffee maker with timer",
+                            "3": "79.99",
+                            "4": 40,
+                            "5": 4,
+                            "6": "Home",
+                            "7": "2025-09-26"
+                        },
+                        {
+                            "0": 16,
+                            "1": "Garden Tools Set",
+                            "2": "Complete set of essential garden tools",
+                            "3": "69.99",
+                            "4": 40,
+                            "5": 8,
+                            "6": "Garden",
+                            "7": "2025-09-26"
+                        },
+                        {
+                            "0": 20,
+                            "1": "Cookbook Collection",
+                            "2": "Set of 3 bestselling cookbooks",
+                            "3": "59.99",
+                            "4": 50,
+                            "5": 6,
+                            "6": "Books",
+                            "7": "2025-09-26"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "product_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": true,
+                            "nullable": false,
+                            "autoIncrement": true
+                        },
+                        {
+                            "title": "product_name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "product_description",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": null
+                        },
+                        {
+                            "title": "price",
+                            "field": "3",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "stock_quantity",
+                            "field": "4",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": "0"
+                        },
+                        {
+                            "title": "supplier_id",
+                            "field": "5",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": null
+                        },
+                        {
+                            "title": "category",
+                            "field": "6",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": null
+                        },
+                        {
+                            "title": "created_date",
+                            "field": "7",
+                            "dataType": {
+                                "type": 27,
+                                "needsQuotes": true
+                            },
+                            "inPK": false,
+                            "nullable": true,
+                            "autoIncrement": false,
+                            "default": "curdate()"
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 14 records retrieved in 0.957ms"
+                    },
+                    "totalRowCount": 14,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT * FROM products\n  WHERE price > 50\n  ORDER BY price DESC",
+                    "updatable": true,
+                    "fullTableName": "products"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 12,
+                "end": 15,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "6bae9624-5db9-4ed6-add9-4cb327c5d8d2"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 150
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "65e00ea0-8fa9-4833-c1e1-a597e2232a34",
+                    "resultId": "6bae9624-5db9-4ed6-add9-4cb327c5d8d2",
+                    "rows": [
+                        {
+                            "0": 12,
+                            "1": "35.5000"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "total_customers",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "avg_age",
+                            "field": "1",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 1 record retrieved in 0.725ms"
+                    },
+                    "totalRowCount": 1,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT COUNT(*) as total_customers,\n         AVG(YEAR(CURDATE()) - YEAR(date_of_birth)) as avg_age\n  FROM customers\n  WHERE date_of_birth IS NOT NULL",
+                    "updatable": false,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 16,
+                "end": 20,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "9b574ec6-0fda-45b6-fc62-b77b7239b337"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 228
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "65e00ea0-8fa9-4833-c1e1-a597e2232a34",
+                    "resultId": "9b574ec6-0fda-45b6-fc62-b77b7239b337",
+                    "rows": [
+                        {
+                            "0": 10,
+                            "1": "Amanda White",
+                            "2": "amanda.white@email.com",
+                            "3": "159 Poplar Place",
+                            "4": null,
+                            "5": "Phoenix",
+                            "6": "AZ",
+                            "7": "85001"
+                        },
+                        {
+                            "0": 9,
+                            "1": "Christopher Lee",
+                            "2": "chris.lee@email.com",
+                            "3": "963 Spruce Circle",
+                            "4": null,
+                            "5": "Portland",
+                            "6": "OR",
+                            "7": "97201"
+                        },
+                        {
+                            "0": 5,
+                            "1": "David Wilson",
+                            "2": "david.wilson@email.com",
+                            "3": "987 Cedar Lane",
+                            "4": null,
+                            "5": "Seattle",
+                            "6": "WA",
+                            "7": "98101"
+                        },
+                        {
+                            "0": 5,
+                            "1": "David Wilson",
+                            "2": "david.wilson@email.com",
+                            "3": "147 Corporate Blvd",
+                            "4": "Floor 15",
+                            "5": "Seattle",
+                            "6": "WA",
+                            "7": "98102"
+                        },
+                        {
+                            "0": 4,
+                            "1": "Emily Davis",
+                            "2": "emily.davis@email.com",
+                            "3": "654 Maple Drive",
+                            "4": null,
+                            "5": "Miami",
+                            "6": "FL",
+                            "7": "33101"
+                        },
+                        {
+                            "0": 11,
+                            "1": "James Garcia",
+                            "2": "james.garcia@email.com",
+                            "3": "357 Ash Boulevard",
+                            "4": null,
+                            "5": "Atlanta",
+                            "6": "GA",
+                            "7": "30301"
+                        },
+                        {
+                            "0": 8,
+                            "1": "Jennifer Martinez",
+                            "2": "jen.martinez@email.com",
+                            "3": "741 Willow Way",
+                            "4": null,
+                            "5": "Austin",
+                            "6": "TX",
+                            "7": "73301"
+                        },
+                        {
+                            "0": 8,
+                            "1": "Jennifer Martinez",
+                            "2": "jen.martinez@email.com",
+                            "3": "852 Commerce St",
+                            "4": null,
+                            "5": "Austin",
+                            "6": "TX",
+                            "7": "73302"
+                        },
+                        {
+                            "0": 1,
+                            "1": "John Smith",
+                            "2": "john.smith@email.com",
+                            "3": "123 Main St",
+                            "4": "Apt 4B",
+                            "5": "New York",
+                            "6": "NY",
+                            "7": "10001"
+                        },
+                        {
+                            "0": 1,
+                            "1": "John Smith",
+                            "2": "john.smith@email.com",
+                            "3": "456 Business Ave",
+                            "4": "Suite 200",
+                            "5": "New York",
+                            "6": "NY",
+                            "7": "10002"
+                        },
+                        {
+                            "0": 6,
+                            "1": "Lisa Anderson",
+                            "2": "lisa.anderson@email.com",
+                            "3": "258 Birch Street",
+                            "4": null,
+                            "5": "Denver",
+                            "6": "CO",
+                            "7": "80201"
+                        },
+                        {
+                            "0": 12,
+                            "1": "Mary Rodriguez",
+                            "2": "mary.rodriguez@email.com",
+                            "3": "468 Hickory Heights",
+                            "4": null,
+                            "5": "Nashville",
+                            "6": "TN",
+                            "7": "37201"
+                        },
+                        {
+                            "0": 3,
+                            "1": "Michael Brown",
+                            "2": "mike.brown@email.com",
+                            "3": "321 Pine Road",
+                            "4": null,
+                            "5": "Chicago",
+                            "6": "IL",
+                            "7": "60601"
+                        },
+                        {
+                            "0": 3,
+                            "1": "Michael Brown",
+                            "2": "mike.brown@email.com",
+                            "3": "321 Pine Road",
+                            "4": null,
+                            "5": "Chicago",
+                            "6": "IL",
+                            "7": "60601"
+                        },
+                        {
+                            "0": 7,
+                            "1": "Robert Taylor",
+                            "2": "robert.taylor@email.com",
+                            "3": "369 Elm Avenue",
+                            "4": null,
+                            "5": "Boston",
+                            "6": "MA",
+                            "7": "02101"
+                        },
+                        {
+                            "0": 2,
+                            "1": "Sarah Johnson",
+                            "2": "sarah.j@email.com",
+                            "3": "789 Oak Street",
+                            "4": null,
+                            "5": "Los Angeles",
+                            "6": "CA",
+                            "7": "90210"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "customer_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "customer_name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "email",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "address_line_1",
+                            "field": "3",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "address_line_2",
+                            "field": "4",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "city",
+                            "field": "5",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "state",
+                            "field": "6",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "postal_code",
+                            "field": "7",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 16 records retrieved in 1.168ms"
+                    },
+                    "totalRowCount": 16,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT c.customer_id, c.customer_name, c.email,\n         a.address_line_1, a.address_line_2, a.city, a.state, a.postal_code\n  FROM customers c\n  INNER JOIN addresses a ON c.customer_id = a.customer_id\n  ORDER BY c.customer_name",
+                    "updatable": false,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 21,
+                "end": 25,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "93d2f07c-5192-4975-9e79-88bb4b2deb82"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 194
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "65e00ea0-8fa9-4833-c1e1-a597e2232a34",
+                    "resultId": "93d2f07c-5192-4975-9e79-88bb4b2deb82",
+                    "rows": [
+                        {
+                            "0": 10,
+                            "1": "Amanda White",
+                            "2": "amanda.white@email.com",
+                            "3": "159 Poplar Place",
+                            "4": "Phoenix",
+                            "5": "AZ"
+                        },
+                        {
+                            "0": 9,
+                            "1": "Christopher Lee",
+                            "2": "chris.lee@email.com",
+                            "3": "963 Spruce Circle",
+                            "4": "Portland",
+                            "5": "OR"
+                        },
+                        {
+                            "0": 5,
+                            "1": "David Wilson",
+                            "2": "david.wilson@email.com",
+                            "3": "987 Cedar Lane",
+                            "4": "Seattle",
+                            "5": "WA"
+                        },
+                        {
+                            "0": 5,
+                            "1": "David Wilson",
+                            "2": "david.wilson@email.com",
+                            "3": "147 Corporate Blvd",
+                            "4": "Seattle",
+                            "5": "WA"
+                        },
+                        {
+                            "0": 4,
+                            "1": "Emily Davis",
+                            "2": "emily.davis@email.com",
+                            "3": "654 Maple Drive",
+                            "4": "Miami",
+                            "5": "FL"
+                        },
+                        {
+                            "0": 11,
+                            "1": "James Garcia",
+                            "2": "james.garcia@email.com",
+                            "3": "357 Ash Boulevard",
+                            "4": "Atlanta",
+                            "5": "GA"
+                        },
+                        {
+                            "0": 8,
+                            "1": "Jennifer Martinez",
+                            "2": "jen.martinez@email.com",
+                            "3": "741 Willow Way",
+                            "4": "Austin",
+                            "5": "TX"
+                        },
+                        {
+                            "0": 8,
+                            "1": "Jennifer Martinez",
+                            "2": "jen.martinez@email.com",
+                            "3": "852 Commerce St",
+                            "4": "Austin",
+                            "5": "TX"
+                        },
+                        {
+                            "0": 1,
+                            "1": "John Smith",
+                            "2": "john.smith@email.com",
+                            "3": "123 Main St",
+                            "4": "New York",
+                            "5": "NY"
+                        },
+                        {
+                            "0": 1,
+                            "1": "John Smith",
+                            "2": "john.smith@email.com",
+                            "3": "456 Business Ave",
+                            "4": "New York",
+                            "5": "NY"
+                        },
+                        {
+                            "0": 6,
+                            "1": "Lisa Anderson",
+                            "2": "lisa.anderson@email.com",
+                            "3": "258 Birch Street",
+                            "4": "Denver",
+                            "5": "CO"
+                        },
+                        {
+                            "0": 12,
+                            "1": "Mary Rodriguez",
+                            "2": "mary.rodriguez@email.com",
+                            "3": "468 Hickory Heights",
+                            "4": "Nashville",
+                            "5": "TN"
+                        },
+                        {
+                            "0": 3,
+                            "1": "Michael Brown",
+                            "2": "mike.brown@email.com",
+                            "3": "321 Pine Road",
+                            "4": "Chicago",
+                            "5": "IL"
+                        },
+                        {
+                            "0": 3,
+                            "1": "Michael Brown",
+                            "2": "mike.brown@email.com",
+                            "3": "321 Pine Road",
+                            "4": "Chicago",
+                            "5": "IL"
+                        },
+                        {
+                            "0": 7,
+                            "1": "Robert Taylor",
+                            "2": "robert.taylor@email.com",
+                            "3": "369 Elm Avenue",
+                            "4": "Boston",
+                            "5": "MA"
+                        },
+                        {
+                            "0": 2,
+                            "1": "Sarah Johnson",
+                            "2": "sarah.j@email.com",
+                            "3": "789 Oak Street",
+                            "4": "Los Angeles",
+                            "5": "CA"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "customer_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "customer_name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "email",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "address_line_1",
+                            "field": "3",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "city",
+                            "field": "4",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "state",
+                            "field": "5",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 16 records retrieved in 1.393ms"
+                    },
+                    "totalRowCount": 16,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT c.customer_id, c.customer_name, c.email,\n         a.address_line_1, a.city, a.state\n  FROM customers c\n  LEFT JOIN addresses a ON c.customer_id = a.customer_id\n  ORDER BY c.customer_name",
+                    "updatable": false,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 26,
+                "end": 30,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "24d0d53b-81e6-4ad1-c529-f3602b2fd300"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 204
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "65e00ea0-8fa9-4833-c1e1-a597e2232a34",
+                    "resultId": "24d0d53b-81e6-4ad1-c529-f3602b2fd300",
+                    "rows": [
+                        {
+                            "0": 15,
+                            "1": "357 Ash Boulevard",
+                            "2": "Atlanta",
+                            "3": "GA",
+                            "4": "Home Address"
+                        },
+                        {
+                            "0": 11,
+                            "1": "741 Willow Way",
+                            "2": "Austin",
+                            "3": "TX",
+                            "4": "Home Address"
+                        },
+                        {
+                            "0": 12,
+                            "1": "852 Commerce St",
+                            "2": "Austin",
+                            "3": "TX",
+                            "4": "Shipping Address"
+                        },
+                        {
+                            "0": 10,
+                            "1": "369 Elm Avenue",
+                            "2": "Boston",
+                            "3": "MA",
+                            "4": "Home Address"
+                        },
+                        {
+                            "0": 4,
+                            "1": "321 Pine Road",
+                            "2": "Chicago",
+                            "3": "IL",
+                            "4": "Home Address"
+                        },
+                        {
+                            "0": 5,
+                            "1": "321 Pine Road",
+                            "2": "Chicago",
+                            "3": "IL",
+                            "4": "Billing Address"
+                        },
+                        {
+                            "0": 9,
+                            "1": "258 Birch Street",
+                            "2": "Denver",
+                            "3": "CO",
+                            "4": "Home Address"
+                        },
+                        {
+                            "0": 3,
+                            "1": "789 Oak Street",
+                            "2": "Los Angeles",
+                            "3": "CA",
+                            "4": "Home Address"
+                        },
+                        {
+                            "0": 6,
+                            "1": "654 Maple Drive",
+                            "2": "Miami",
+                            "3": "FL",
+                            "4": "Home Address"
+                        },
+                        {
+                            "0": 16,
+                            "1": "468 Hickory Heights",
+                            "2": "Nashville",
+                            "3": "TN",
+                            "4": "Home Address"
+                        },
+                        {
+                            "0": 1,
+                            "1": "123 Main St",
+                            "2": "New York",
+                            "3": "NY",
+                            "4": "Home Address"
+                        },
+                        {
+                            "0": 2,
+                            "1": "456 Business Ave",
+                            "2": "New York",
+                            "3": "NY",
+                            "4": "Work Address"
+                        },
+                        {
+                            "0": 14,
+                            "1": "159 Poplar Place",
+                            "2": "Phoenix",
+                            "3": "AZ",
+                            "4": "Home Address"
+                        },
+                        {
+                            "0": 13,
+                            "1": "963 Spruce Circle",
+                            "2": "Portland",
+                            "3": "OR",
+                            "4": "Home Address"
+                        },
+                        {
+                            "0": 7,
+                            "1": "987 Cedar Lane",
+                            "2": "Seattle",
+                            "3": "WA",
+                            "4": "Home Address"
+                        },
+                        {
+                            "0": 8,
+                            "1": "147 Corporate Blvd",
+                            "2": "Seattle",
+                            "3": "WA",
+                            "4": "Work Address"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "address_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "address_line_1",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "city",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "state",
+                            "field": "3",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "address_type_description",
+                            "field": "4",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 16 records retrieved in 0.887ms"
+                    },
+                    "totalRowCount": 16,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT a.address_id, a.address_line_1, a.city, a.state,\n         rt.address_type_description\n  FROM addresses a\n  JOIN ref_address_types rt ON a.address_type_code = rt.address_type_code\n  ORDER BY a.city",
+                    "updatable": false,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 31,
+                "end": 39,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "f1f49c9e-5ff1-4045-c368-67796f1dc4b8"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 325
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "65e00ea0-8fa9-4833-c1e1-a597e2232a34",
+                    "resultId": "f1f49c9e-5ff1-4045-c368-67796f1dc4b8",
+                    "rows": [
+                        {
+                            "0": "TechCorp Industries",
+                            "1": 4,
+                            "2": "341.490000",
+                            "3": "15.99",
+                            "4": "1299.99"
+                        },
+                        {
+                            "0": "Home Essentials",
+                            "1": 4,
+                            "2": "127.490000",
+                            "3": "39.99",
+                            "4": "299.99"
+                        },
+                        {
+                            "0": "Global Electronics",
+                            "1": 3,
+                            "2": "229.990000",
+                            "3": "89.99",
+                            "4": "399.99"
+                        },
+                        {
+                            "0": "Sports Pro",
+                            "1": 3,
+                            "2": "101.656667",
+                            "3": "24.99",
+                            "4": "149.99"
+                        },
+                        {
+                            "0": "Fashion Forward",
+                            "1": 2,
+                            "2": "214.990000",
+                            "3": "179.99",
+                            "4": "249.99"
+                        },
+                        {
+                            "0": "Book World",
+                            "1": 2,
+                            "2": "54.990000",
+                            "3": "49.99",
+                            "4": "59.99"
+                        },
+                        {
+                            "0": "Auto Parts Plus",
+                            "1": 1,
+                            "2": "119.990000",
+                            "3": "119.99",
+                            "4": "119.99"
+                        },
+                        {
+                            "0": "Garden Paradise",
+                            "1": 1,
+                            "2": "69.990000",
+                            "3": "69.99",
+                            "4": "69.99"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "supplier_name",
+                            "field": "0",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "product_count",
+                            "field": "1",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "avg_price",
+                            "field": "2",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "min_price",
+                            "field": "3",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "max_price",
+                            "field": "4",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 8 records retrieved in 1.272ms"
+                    },
+                    "totalRowCount": 8,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT s.supplier_name,\n         COUNT(p.product_id) as product_count,\n         AVG(p.price) as avg_price,\n         MIN(p.price) as min_price,\n         MAX(p.price) as max_price\n  FROM suppliers s\n  LEFT JOIN products p ON s.supplier_id = p.supplier_id\n  GROUP BY s.supplier_id, s.supplier_name\n  ORDER BY product_count DESC",
+                    "updatable": false,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 40,
+                "end": 46,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "dcf5e929-c924-4881-fa51-c7164b1c2311"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 178
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "65e00ea0-8fa9-4833-c1e1-a597e2232a34",
+                    "resultId": "dcf5e929-c924-4881-fa51-c7164b1c2311",
+                    "rows": [
+                        {
+                            "0": "Laptop Pro 15",
+                            "1": "1299.99",
+                            "2": "High-performance laptop with 15-inch display"
+                        },
+                        {
+                            "0": "Wireless Mouse",
+                            "1": "29.99",
+                            "2": "Ergonomic wireless mouse with USB receiver"
+                        },
+                        {
+                            "0": "Smartphone Case",
+                            "1": "19.99",
+                            "2": "Protective case for latest smartphone models"
+                        },
+                        {
+                            "0": "Tablet Stand",
+                            "1": "15.99",
+                            "2": "Adjustable stand for tablets and phones"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "product_name",
+                            "field": "0",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "price",
+                            "field": "1",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "product_description",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 4 records retrieved in 0.749ms"
+                    },
+                    "totalRowCount": 4,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT product_name, price, product_description\n  FROM products\n  WHERE supplier_id IN (\n      SELECT supplier_id\n      FROM suppliers\n      WHERE supplier_city = 'New York'\n  )",
+                    "updatable": true,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 47,
+                "end": 55,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "e3b8eec5-f6ab-4907-8ecf-d3ab0fd3f2ca"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 408
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "65e00ea0-8fa9-4833-c1e1-a597e2232a34",
+                    "resultId": "e3b8eec5-f6ab-4907-8ecf-d3ab0fd3f2ca",
+                    "rows": [
+                        {
+                            "0": "John Smith",
+                            "1": 2,
+                            "2": "Home Address,Work Address"
+                        },
+                        {
+                            "0": "Michael Brown",
+                            "1": 2,
+                            "2": "Billing Address,Home Address"
+                        },
+                        {
+                            "0": "David Wilson",
+                            "1": 2,
+                            "2": "Home Address,Work Address"
+                        },
+                        {
+                            "0": "Jennifer Martinez",
+                            "1": 2,
+                            "2": "Home Address,Shipping Address"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "customer_name",
+                            "field": "0",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "total_addresses",
+                            "field": "1",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "address_types",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 4 records retrieved in 2.168ms"
+                    },
+                    "totalRowCount": 4,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT c.customer_name,\n         COUNT(a.address_id) as total_addresses,\n         GROUP_CONCAT(DISTINCT rt.address_type_description) as address_types\n  FROM customers c\n  LEFT JOIN addresses a ON c.customer_id = a.customer_id\n  LEFT JOIN ref_address_types rt ON a.address_type_code = rt.address_type_code\n  GROUP BY c.customer_id, c.customer_name\n  HAVING total_addresses > 1\n  ORDER BY total_addresses DESC",
+                    "updatable": false,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 56,
+                "end": 64,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "8194aea5-645e-4238-ccca-a62acd0b2d23"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 290
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "65e00ea0-8fa9-4833-c1e1-a597e2232a34",
+                    "resultId": "8194aea5-645e-4238-ccca-a62acd0b2d23",
+                    "rows": [
+                        {
+                            "0": "Laptop Pro 15",
+                            "1": "1299.99",
+                            "2": 1,
+                            "3": "Expensive"
+                        },
+                        {
+                            "0": "4K Monitor",
+                            "1": "399.99",
+                            "2": 2,
+                            "3": "Expensive"
+                        },
+                        {
+                            "0": "Office Chair",
+                            "1": "299.99",
+                            "2": 4,
+                            "3": "Expensive"
+                        },
+                        {
+                            "0": "Designer Jacket",
+                            "1": "249.99",
+                            "2": 3,
+                            "3": "Expensive"
+                        },
+                        {
+                            "0": "Bluetooth Headphones",
+                            "1": "199.99",
+                            "2": 2,
+                            "3": "Expensive"
+                        },
+                        {
+                            "0": "Winter Coat",
+                            "1": "179.99",
+                            "2": 3,
+                            "3": "Expensive"
+                        },
+                        {
+                            "0": "Fitness Tracker",
+                            "1": "149.99",
+                            "2": 5,
+                            "3": "Expensive"
+                        },
+                        {
+                            "0": "Running Shoes",
+                            "1": "129.99",
+                            "2": 5,
+                            "3": "Expensive"
+                        },
+                        {
+                            "0": "Car Battery",
+                            "1": "119.99",
+                            "2": 7,
+                            "3": "Expensive"
+                        },
+                        {
+                            "0": "Gaming Keyboard",
+                            "1": "89.99",
+                            "2": 2,
+                            "3": "Moderate"
+                        },
+                        {
+                            "0": "Cooking Pan Set",
+                            "1": "89.99",
+                            "2": 4,
+                            "3": "Moderate"
+                        },
+                        {
+                            "0": "Coffee Maker",
+                            "1": "79.99",
+                            "2": 4,
+                            "3": "Moderate"
+                        },
+                        {
+                            "0": "Garden Tools Set",
+                            "1": "69.99",
+                            "2": 8,
+                            "3": "Moderate"
+                        },
+                        {
+                            "0": "Cookbook Collection",
+                            "1": "59.99",
+                            "2": 6,
+                            "3": "Moderate"
+                        },
+                        {
+                            "0": "Programming Book",
+                            "1": "49.99",
+                            "2": 6,
+                            "3": "Affordable"
+                        },
+                        {
+                            "0": "Desk Lamp",
+                            "1": "39.99",
+                            "2": 4,
+                            "3": "Affordable"
+                        },
+                        {
+                            "0": "Wireless Mouse",
+                            "1": "29.99",
+                            "2": 1,
+                            "3": "Affordable"
+                        },
+                        {
+                            "0": "Sport Water Bottle",
+                            "1": "24.99",
+                            "2": 5,
+                            "3": "Affordable"
+                        },
+                        {
+                            "0": "Smartphone Case",
+                            "1": "19.99",
+                            "2": 1,
+                            "3": "Budget"
+                        },
+                        {
+                            "0": "Tablet Stand",
+                            "1": "15.99",
+                            "2": 1,
+                            "3": "Budget"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "product_name",
+                            "field": "0",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "price",
+                            "field": "1",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "supplier_id",
+                            "field": "2",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "price_category",
+                            "field": "3",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 20 records retrieved in 0.781ms"
+                    },
+                    "totalRowCount": 20,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT product_name, price, supplier_id,\n         CASE\n             WHEN price > 100 THEN 'Expensive'\n             WHEN price > 50 THEN 'Moderate'\n             WHEN price > 20 THEN 'Affordable'\n             ELSE 'Budget'\n         END as price_category\n  FROM products\n  ORDER BY price DESC",
+                    "updatable": false,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 65,
+                "end": 72,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "c7144453-cfba-42a3-ba7f-749b1aa45b13"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 415
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "65e00ea0-8fa9-4833-c1e1-a597e2232a34",
+                    "resultId": "c7144453-cfba-42a3-ba7f-749b1aa45b13",
+                    "rows": [
+                        {
+                            "0": "TechCorp Industries",
+                            "1": "New York",
+                            "2": "555-0101",
+                            "3": 4,
+                            "4": "341.490000",
+                            "5": "1365.96"
+                        },
+                        {
+                            "0": "Home Essentials",
+                            "1": "Chicago",
+                            "2": "555-0104",
+                            "3": 4,
+                            "4": "127.490000",
+                            "5": "509.96"
+                        },
+                        {
+                            "0": "Global Electronics",
+                            "1": "Los Angeles",
+                            "2": "555-0102",
+                            "3": 3,
+                            "4": "229.990000",
+                            "5": "689.97"
+                        },
+                        {
+                            "0": "Sports Pro",
+                            "1": "Denver",
+                            "2": "555-0105",
+                            "3": 3,
+                            "4": "101.656667",
+                            "5": "304.97"
+                        },
+                        {
+                            "0": "Fashion Forward",
+                            "1": "Miami",
+                            "2": "555-0103",
+                            "3": 2,
+                            "4": "214.990000",
+                            "5": "429.98"
+                        },
+                        {
+                            "0": "Book World",
+                            "1": "Seattle",
+                            "2": "555-0106",
+                            "3": 2,
+                            "4": "54.990000",
+                            "5": "109.98"
+                        },
+                        {
+                            "0": "Auto Parts Plus",
+                            "1": "Detroit",
+                            "2": "555-0107",
+                            "3": 1,
+                            "4": "119.990000",
+                            "5": "119.99"
+                        },
+                        {
+                            "0": "Garden Paradise",
+                            "1": "Portland",
+                            "2": "555-0108",
+                            "3": 1,
+                            "4": "69.990000",
+                            "5": "69.99"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "supplier_name",
+                            "field": "0",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "supplier_city",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "supplier_phone",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "products_supplied",
+                            "field": "3",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "avg_product_price",
+                            "field": "4",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "total_inventory_value",
+                            "field": "5",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 8 records retrieved in 0.966ms"
+                    },
+                    "totalRowCount": 8,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT s.supplier_name, s.supplier_city, s.supplier_phone,\n         COUNT(p.product_id) as products_supplied,\n         AVG(p.price) as avg_product_price,\n         SUM(p.price) as total_inventory_value\n  FROM suppliers s\n  LEFT JOIN products p ON s.supplier_id = p.supplier_id\n  GROUP BY s.supplier_id, s.supplier_name, s.supplier_city, s.supplier_phone\n  ORDER BY products_supplied DESC, total_inventory_value DESC",
+                    "updatable": false,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 73,
+                "end": 79,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "e0a8c1b3-3326-4668-d8fd-a87281e8fe70"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 257
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "65e00ea0-8fa9-4833-c1e1-a597e2232a34",
+                    "resultId": "e0a8c1b3-3326-4668-d8fd-a87281e8fe70",
+                    "rows": [
+                        {
+                            "0": "GA",
+                            "1": "Atlanta",
+                            "2": 1,
+                            "3": 1
+                        },
+                        {
+                            "0": "TX",
+                            "1": "Austin",
+                            "2": 1,
+                            "3": 2
+                        },
+                        {
+                            "0": "MA",
+                            "1": "Boston",
+                            "2": 1,
+                            "3": 1
+                        },
+                        {
+                            "0": "IL",
+                            "1": "Chicago",
+                            "2": 1,
+                            "3": 2
+                        },
+                        {
+                            "0": "CO",
+                            "1": "Denver",
+                            "2": 1,
+                            "3": 1
+                        },
+                        {
+                            "0": "CA",
+                            "1": "Los Angeles",
+                            "2": 1,
+                            "3": 1
+                        },
+                        {
+                            "0": "FL",
+                            "1": "Miami",
+                            "2": 1,
+                            "3": 1
+                        },
+                        {
+                            "0": "TN",
+                            "1": "Nashville",
+                            "2": 1,
+                            "3": 1
+                        },
+                        {
+                            "0": "NY",
+                            "1": "New York",
+                            "2": 1,
+                            "3": 2
+                        },
+                        {
+                            "0": "AZ",
+                            "1": "Phoenix",
+                            "2": 1,
+                            "3": 1
+                        },
+                        {
+                            "0": "OR",
+                            "1": "Portland",
+                            "2": 1,
+                            "3": 1
+                        },
+                        {
+                            "0": "WA",
+                            "1": "Seattle",
+                            "2": 1,
+                            "3": 2
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "state",
+                            "field": "0",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "city",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "customer_count",
+                            "field": "2",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "total_addresses",
+                            "field": "3",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 12 records retrieved in 1.058ms"
+                    },
+                    "totalRowCount": 12,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT state, city,\n         COUNT(DISTINCT c.customer_id) as customer_count,\n         COUNT(a.address_id) as total_addresses\n  FROM addresses a\n  JOIN customers c ON a.customer_id = c.customer_id\n  GROUP BY state, city\n  ORDER BY customer_count DESC, city",
+                    "updatable": false,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 80,
+                "end": 86,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "4921c11f-2614-4c07-fc21-fcc645ea385a"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 181
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "65e00ea0-8fa9-4833-c1e1-a597e2232a34",
+                    "resultId": "4921c11f-2614-4c07-fc21-fcc645ea385a",
+                    "rows": [],
+                    "executionInfo": {
+                        "text": "OK, 0 records retrieved in 0.763ms"
+                    },
+                    "totalRowCount": 0,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT customer_id, customer_name, customer_phone, email\n  FROM customers c\n  WHERE NOT EXISTS (\n      SELECT 1\n      FROM addresses a\n      WHERE a.customer_id = c.customer_id\n  )",
+                    "updatable": true,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 87,
+                "end": 93,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "e80bd562-19ed-4d34-f507-225e6d68d6b0"
+                    ]
+                },
+                "currentHeight": 352,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 358
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "65e00ea0-8fa9-4833-c1e1-a597e2232a34",
+                    "resultId": "e80bd562-19ed-4d34-f507-225e6d68d6b0",
+                    "rows": [
+                        {
+                            "0": "Amanda White",
+                            "1": "amanda.white@email.com",
+                            "2": "555-1010",
+                            "3": "159 Poplar Place",
+                            "4": "Phoenix",
+                            "5": "AZ",
+                            "6": "85001",
+                            "7": "Home Address"
+                        },
+                        {
+                            "0": "Christopher Lee",
+                            "1": "chris.lee@email.com",
+                            "2": "555-1009",
+                            "3": "963 Spruce Circle",
+                            "4": "Portland",
+                            "5": "OR",
+                            "6": "97201",
+                            "7": "Home Address"
+                        },
+                        {
+                            "0": "David Wilson",
+                            "1": "david.wilson@email.com",
+                            "2": "555-1005",
+                            "3": "987 Cedar Lane",
+                            "4": "Seattle",
+                            "5": "WA",
+                            "6": "98101",
+                            "7": "Home Address"
+                        },
+                        {
+                            "0": "David Wilson",
+                            "1": "david.wilson@email.com",
+                            "2": "555-1005",
+                            "3": "147 Corporate Blvd",
+                            "4": "Seattle",
+                            "5": "WA",
+                            "6": "98102",
+                            "7": "Work Address"
+                        },
+                        {
+                            "0": "Emily Davis",
+                            "1": "emily.davis@email.com",
+                            "2": "555-1004",
+                            "3": "654 Maple Drive",
+                            "4": "Miami",
+                            "5": "FL",
+                            "6": "33101",
+                            "7": "Home Address"
+                        },
+                        {
+                            "0": "James Garcia",
+                            "1": "james.garcia@email.com",
+                            "2": "555-1011",
+                            "3": "357 Ash Boulevard",
+                            "4": "Atlanta",
+                            "5": "GA",
+                            "6": "30301",
+                            "7": "Home Address"
+                        },
+                        {
+                            "0": "Jennifer Martinez",
+                            "1": "jen.martinez@email.com",
+                            "2": "555-1008",
+                            "3": "741 Willow Way",
+                            "4": "Austin",
+                            "5": "TX",
+                            "6": "73301",
+                            "7": "Home Address"
+                        },
+                        {
+                            "0": "Jennifer Martinez",
+                            "1": "jen.martinez@email.com",
+                            "2": "555-1008",
+                            "3": "852 Commerce St",
+                            "4": "Austin",
+                            "5": "TX",
+                            "6": "73302",
+                            "7": "Shipping Address"
+                        },
+                        {
+                            "0": "John Smith",
+                            "1": "john.smith@email.com",
+                            "2": "555-1001",
+                            "3": "123 Main St",
+                            "4": "New York",
+                            "5": "NY",
+                            "6": "10001",
+                            "7": "Home Address"
+                        },
+                        {
+                            "0": "John Smith",
+                            "1": "john.smith@email.com",
+                            "2": "555-1001",
+                            "3": "456 Business Ave",
+                            "4": "New York",
+                            "5": "NY",
+                            "6": "10002",
+                            "7": "Work Address"
+                        },
+                        {
+                            "0": "Lisa Anderson",
+                            "1": "lisa.anderson@email.com",
+                            "2": "555-1006",
+                            "3": "258 Birch Street",
+                            "4": "Denver",
+                            "5": "CO",
+                            "6": "80201",
+                            "7": "Home Address"
+                        },
+                        {
+                            "0": "Mary Rodriguez",
+                            "1": "mary.rodriguez@email.com",
+                            "2": "555-1012",
+                            "3": "468 Hickory Heights",
+                            "4": "Nashville",
+                            "5": "TN",
+                            "6": "37201",
+                            "7": "Home Address"
+                        },
+                        {
+                            "0": "Michael Brown",
+                            "1": "mike.brown@email.com",
+                            "2": "555-1003",
+                            "3": "321 Pine Road",
+                            "4": "Chicago",
+                            "5": "IL",
+                            "6": "60601",
+                            "7": "Billing Address"
+                        },
+                        {
+                            "0": "Michael Brown",
+                            "1": "mike.brown@email.com",
+                            "2": "555-1003",
+                            "3": "321 Pine Road",
+                            "4": "Chicago",
+                            "5": "IL",
+                            "6": "60601",
+                            "7": "Home Address"
+                        },
+                        {
+                            "0": "Robert Taylor",
+                            "1": "robert.taylor@email.com",
+                            "2": "555-1007",
+                            "3": "369 Elm Avenue",
+                            "4": "Boston",
+                            "5": "MA",
+                            "6": "02101",
+                            "7": "Home Address"
+                        },
+                        {
+                            "0": "Sarah Johnson",
+                            "1": "sarah.j@email.com",
+                            "2": "555-1002",
+                            "3": "789 Oak Street",
+                            "4": "Los Angeles",
+                            "5": "CA",
+                            "6": "90210",
+                            "7": "Home Address"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "customer_name",
+                            "field": "0",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "email",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "customer_phone",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "address_line_1",
+                            "field": "3",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "city",
+                            "field": "4",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "state",
+                            "field": "5",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "postal_code",
+                            "field": "6",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "address_type_description",
+                            "field": "7",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 16 records retrieved in 1.268ms"
+                    },
+                    "totalRowCount": 16,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT c.customer_name, c.email, c.customer_phone,\n         a.address_line_1, a.city, a.state, a.postal_code,\n         rt.address_type_description\n  FROM customers c\n  LEFT JOIN addresses a ON c.customer_id = a.customer_id\n  LEFT JOIN ref_address_types rt ON a.address_type_code = rt.address_type_code\n  ORDER BY c.customer_name, rt.address_type_description",
+                    "updatable": false,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 94,
+                "end": 102,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 0,
+                            "index": 0,
+                            "content": "MySQL Error (1050): Table 'customer_summary' already exists",
+                            "language": "ansi"
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": ""
+                    }
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 504
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 103,
+                "end": 105,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "d4305f9c-573b-47a7-c29f-14a3c8921f5d"
+                    ]
+                },
+                "currentHeight": 177.390625,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 87
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "65e00ea0-8fa9-4833-c1e1-a597e2232a34",
+                    "resultId": "d4305f9c-573b-47a7-c29f-14a3c8921f5d",
+                    "rows": [
+                        {
+                            "0": 1,
+                            "1": "John Smith",
+                            "2": "john.smith@email.com",
+                            "3": "555-1001",
+                            "4": 2,
+                            "5": "New York",
+                            "6": "Home Address,Work Address"
+                        },
+                        {
+                            "0": 3,
+                            "1": "Michael Brown",
+                            "2": "mike.brown@email.com",
+                            "3": "555-1003",
+                            "4": 2,
+                            "5": "Chicago",
+                            "6": "Billing Address,Home Address"
+                        },
+                        {
+                            "0": 5,
+                            "1": "David Wilson",
+                            "2": "david.wilson@email.com",
+                            "3": "555-1005",
+                            "4": 2,
+                            "5": "Seattle",
+                            "6": "Home Address,Work Address"
+                        },
+                        {
+                            "0": 8,
+                            "1": "Jennifer Martinez",
+                            "2": "jen.martinez@email.com",
+                            "3": "555-1008",
+                            "4": 2,
+                            "5": "Austin",
+                            "6": "Home Address,Shipping Address"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "customer_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "customer_name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "email",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "customer_phone",
+                            "field": "3",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "address_count",
+                            "field": "4",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "cities_lived",
+                            "field": "5",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "address_types",
+                            "field": "6",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 4 records retrieved in 1.14ms"
+                    },
+                    "totalRowCount": 4,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT * FROM customer_summary\n  WHERE address_count > 1\n  ORDER BY address_count DESC",
+                    "updatable": false,
+                    "fullTableName": "customer_summary"
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 106,
+                "end": 106,
+                "language": "mysql",
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 0
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        }
+    ]
+}
