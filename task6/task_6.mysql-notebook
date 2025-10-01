@@ -1,0 +1,4023 @@
+{
+    "type": "MySQLNotebook",
+    "version": "1.0",
+    "caption": "DB Notebook",
+    "content": "\\about\ncreate database online_sales;\nuse online_sales;\nCREATE TABLE orders (\n      order_id INTEGER PRIMARY KEY,\n      order_date DATE NOT NULL,\n      amount DECIMAL(10, 2) NOT NULL,\n      product_id INTEGER NOT NULL\n  );\nCREATE TABLE products (\n      product_id INTEGER PRIMARY KEY,\n      product_name VARCHAR(100) NOT NULL,\n      category_id INTEGER NOT NULL,\n      unit_price DECIMAL(10, 2) NOT NULL\n  );\nCREATE TABLE categories (\n      category_id INTEGER PRIMARY KEY,\n      category_name VARCHAR(50) NOT NULL\n  );\nCREATE TABLE customers (\n      customer_id INTEGER PRIMARY KEY,\n      customer_name VARCHAR(100) NOT NULL,\n      region VARCHAR(50) NOT NULL,\n      signup_date DATE NOT NULL\n  );\nINSERT INTO orders (order_id, order_date, amount, product_id) VALUES\n  -- 2023 data\n  (1, '2023-01-05', 150.00, 101),\n  (2, '2023-01-12', 200.00, 102),\n  (3, '2023-01-18', 175.50, 101),\n  (4, '2023-02-03', 220.00, 103),\n  (5, '2023-02-14', 189.99, 102),\n  (6, '2023-02-20', 310.00, 104),\n  (7, '2023-02-25', 156.75, 101),\n  (8, '2023-03-08', 425.00, 105),\n  (9, '2023-03-15', 198.50, 102),\n  (10, '2023-03-22', 267.00, 103),\n  (11, '2023-04-02', 345.00, 104),\n  (12, '2023-04-11', 178.25, 101),\n  (13, '2023-04-19', 289.99, 105),\n  (14, '2023-04-28', 156.00, 102),\n  (15, '2023-05-05', 412.50, 103),\n  (16, '2023-05-13', 234.00, 104),\n  (17, '2023-05-21', 298.75, 105),\n  (18, '2023-06-03', 189.00, 101),\n  (19, '2023-06-14', 456.00, 102),\n  (20, '2023-06-22', 324.50, 103),\n  (21, '2023-07-01', 278.00, 104),\n  (22, '2023-07-15', 398.25, 105),\n  (23, '2023-07-23', 167.50, 101),\n  (24, '2023-08-04', 512.00, 102),\n  (25, '2023-08-18', 289.00, 103),\n  (26, '2023-08-27', 345.75, 104),\n  (27, '2023-09-09', 423.00, 105),\n  (28, '2023-09-17', 198.50, 101),\n  (29, '2023-09-25', 367.00, 102),\n  (30, '2023-10-06', 445.00, 103),\n  (31, '2023-10-14', 276.25, 104),\n  (32, '2023-10-22', 389.99, 105),\n  (33, '2023-11-03', 498.00, 101),\n  (34, '2023-11-11', 334.50, 102),\n  (35, '2023-11-19', 267.75, 103),\n  (36, '2023-12-02', 589.00, 104),\n  (37, '2023-12-15', 412.00, 105),\n  (38, '2023-12-23', 356.25, 101),\n\n  -- 2024 data\n  (39, '2024-01-07', 234.00, 102),\n  (40, '2024-01-15', 378.50, 103),\n  (41, '2024-01-24', 289.00, 104),\n  (42, '2024-02-05', 445.00, 105),\n  (43, '2024-02-16', 198.75, 101),\n  (44, '2024-02-28', 523.00, 102),\n  (45, '2024-03-09', 367.50, 103),\n  (46, '2024-03-18', 412.00, 104),\n  (47, '2024-03-26', 298.25, 105),\n  (48, '2024-04-08', 534.00, 101),\n  (49, '2024-04-17', 289.50, 102),\n  (50, '2024-04-25', 456.75, 103),\n  (51, '2024-05-03', 378.00, 104),\n  (52, '2024-05-12', 512.50, 105),\n  (53, '2024-05-21', 267.00, 101),\n  (54, '2024-06-02', 598.00, 102),\n  (55, '2024-06-13', 389.25, 103),\n  (56, '2024-06-24', 445.50, 104),\n  (57, '2024-07-05', 323.00, 105),\n  (58, '2024-07-16', 478.75, 101),\n  (59, '2024-07-27', 534.00, 102),\n  (60, '2024-08-08', 412.50, 103),\n  (61, '2024-08-19', 567.00, 104),\n  (62, '2024-08-28', 389.25, 105),\n  (63, '2024-09-09', 623.00, 101),\n  (64, '2024-09-18', 456.50, 102),\n  (65, '2024-09-26', 512.75, 103);\nINSERT INTO categories (category_id, category_name) VALUES\n  (1, 'Electronics'),\n  (2, 'Clothing'),\n  (3, 'Home & Garden'),\n  (4, 'Sports'),\n  (5, 'Books');\nINSERT INTO products (product_id, product_name, category_id, unit_price) VALUES\n  (101, 'Wireless Headphones', 1, 150.00),\n  (102, 'Smart Watch', 1, 200.00),\n  (103, 'Running Shoes', 4, 220.00),\n  (104, 'Coffee Maker', 3, 310.00),\n  (105, 'Laptop Stand', 1, 425.00);\nINSERT INTO customers (customer_id, customer_name, region, signup_date) VALUES\n  (1, 'John Smith', 'North', '2022-03-15'),\n  (2, 'Emma Johnson', 'South', '2022-06-20'),\n  (3, 'Michael Brown', 'East', '2022-09-10'),\n  (4, 'Sarah Davis', 'West', '2023-01-05'),\n  (5, 'David Wilson', 'North', '2023-03-12'),\n  (6, 'Lisa Anderson', 'South', '2023-05-18'),\n  (7, 'James Taylor', 'East', '2023-08-22'),\n  (8, 'Emily Martinez', 'West', '2023-11-30'),\n  (9, 'Robert Garcia', 'North', '2024-02-14'),\n  (10, 'Jennifer Lopez', 'South', '2024-04-25');\nALTER TABLE orders ADD COLUMN customer_id INTEGER;\nSELECT\n      EXTRACT(YEAR FROM order_date) AS year,\n      EXTRACT(MONTH FROM order_date) AS month,\n      COUNT(DISTINCT order_id) AS order_volume,\n      SUM(amount) AS total_revenue,\n      ROUND(AVG(amount), 2) AS avg_order_value\n  FROM orders\n  GROUP BY EXTRACT(YEAR FROM order_date), EXTRACT(MONTH FROM order_date)\n  ORDER BY year, month;\nSELECT\n      EXTRACT(MONTH FROM order_date) AS month,\n      COUNT(DISTINCT order_id) AS order_volume,\n      SUM(amount) AS total_revenue,\n      ROUND(AVG(amount), 2) AS avg_order_value\n  FROM orders\n  WHERE EXTRACT(YEAR FROM order_date) = 2024\n  GROUP BY EXTRACT(MONTH FROM order_date)\n  ORDER BY month;\nSELECT\n      EXTRACT(YEAR FROM order_date) AS year,\n      COUNT(DISTINCT order_id) AS total_orders,\n      SUM(amount) AS total_revenue,\n      ROUND(AVG(amount), 2) AS avg_order_value\n  FROM orders\n  GROUP BY EXTRACT(YEAR FROM order_date)\n  ORDER BY year;\nSELECT\n      EXTRACT(YEAR FROM order_date) AS year,\n      EXTRACT(MONTH FROM order_date) AS month,\n      SUM(amount) AS total_revenue,\n      COUNT(DISTINCT order_id) AS order_volume\n  FROM orders\n  GROUP BY EXTRACT(YEAR FROM order_date), EXTRACT(MONTH FROM order_date)\n  ORDER BY total_revenue DESC\n  LIMIT 10;\nSELECT\n      EXTRACT(YEAR FROM order_date) AS year,\n      EXTRACT(MONTH FROM order_date) AS month,\n      product_id,\n      COUNT(DISTINCT order_id) AS orders,\n      SUM(amount) AS revenue\n  FROM orders\n  WHERE order_date BETWEEN '2024-01-01' AND '2024-06-30'\n  GROUP BY EXTRACT(YEAR FROM order_date), EXTRACT(MONTH FROM order_date), product_id\n  ORDER BY year, month, revenue DESC;\nUPDATE orders SET customer_id = 1 WHERE order_id IN (1, 11, 21, 31, 41, 51, 61);\n  UPDATE orders SET customer_id = 2 WHERE order_id IN (2, 12, 22, 32, 42, 52, 62);\n  UPDATE orders SET customer_id = 3 WHERE order_id IN (3, 13, 23, 33, 43, 53, 63);\n  UPDATE orders SET customer_id = 4 WHERE order_id IN (4, 14, 24, 34, 44, 54, 64);\n  UPDATE orders SET customer_id = 5 WHERE order_id IN (5, 15, 25, 35, 45, 55, 65);\n  UPDATE orders SET customer_id = 6 WHERE order_id IN (6, 16, 26, 36, 46, 56);\n  UPDATE orders SET customer_id = 7 WHERE order_id IN (7, 17, 27, 37, 47, 57);\n  UPDATE orders SET customer_id = 8 WHERE order_id IN (8, 18, 28, 38, 48, 58);\n  UPDATE orders SET customer_id = 9 WHERE order_id IN (9, 19, 29, 39, 49, 59);\n  UPDATE orders SET customer_id = 10 WHERE order_id IN (10, 20, 30, 40, 50, 60);\nSELECT\n      EXTRACT(YEAR FROM o.order_date) AS year,\n      EXTRACT(MONTH FROM o.order_date) AS month,\n      c.category_name,\n      COUNT(DISTINCT o.order_id) AS order_count,\n      SUM(o.amount) AS total_revenue,\n      ROUND(AVG(o.amount), 2) AS avg_order_value\n  FROM orders o\n  JOIN products p ON o.product_id = p.product_id\n  JOIN categories c ON p.category_id = c.category_id\n  GROUP BY EXTRACT(YEAR FROM o.order_date), EXTRACT(MONTH FROM o.order_date), c.category_name\n  ORDER BY year, month, total_revenue DESC;\nSELECT\n      EXTRACT(YEAR FROM o.order_date) AS year,\n      EXTRACT(MONTH FROM o.order_date) AS month,\n      cu.region,\n      COUNT(DISTINCT o.order_id) AS order_count,\n      SUM(o.amount) AS total_revenue,\n      COUNT(DISTINCT cu.customer_id) AS unique_customers\n  FROM orders o\n  JOIN customers cu ON o.customer_id = cu.customer_id\n  GROUP BY EXTRACT(YEAR FROM o.order_date), EXTRACT(MONTH FROM o.order_date), cu.region\n  ORDER BY year, month, total_revenue DESC;\nSELECT\n      cu.customer_id,\n      cu.customer_name,\n      cu.region,\n      COUNT(DISTINCT o.order_id) AS total_orders,\n      SUM(o.amount) AS lifetime_value,\n      ROUND(AVG(o.amount), 2) AS avg_order_value,\n      MIN(o.order_date) AS first_order_date,\n      MAX(o.order_date) AS last_order_date\n  FROM customers cu\n  JOIN orders o ON cu.customer_id = o.customer_id\n  GROUP BY cu.customer_id, cu.customer_name, cu.region\n  ORDER BY lifetime_value DESC;\nSELECT\n      year,\n      month,\n      total_revenue,\n      order_volume,\n      LAG(total_revenue) OVER (ORDER BY year, month) AS prev_month_revenue,\n      ROUND(\n          ((total_revenue - LAG(total_revenue) OVER (ORDER BY year, month)) /\n          LAG(total_revenue) OVER (ORDER BY year, month) * 100),\n          2\n      ) AS revenue_growth_percent\n  FROM (\n      SELECT\n          EXTRACT(YEAR FROM order_date) AS year,\n          EXTRACT(MONTH FROM order_date) AS month,\n          SUM(amount) AS total_revenue,\n          COUNT(DISTINCT order_id) AS order_volume\n      FROM orders\n      GROUP BY EXTRACT(YEAR FROM order_date), EXTRACT(MONTH FROM order_date)\n  ) monthly_data\n  ORDER BY year, month;\n SELECT\n      EXTRACT(YEAR FROM o.order_date) AS year,\n      EXTRACT(QUARTER FROM o.order_date) AS quarter,\n      p.product_name,\n      c.category_name,\n      COUNT(DISTINCT o.order_id) AS orders,\n      SUM(o.amount) AS total_revenue,\n      ROUND(AVG(o.amount), 2) AS avg_order_value\n  FROM orders o\n  JOIN products p ON o.product_id = p.product_id\n  JOIN categories c ON p.category_id = c.category_id\n  GROUP BY\n      EXTRACT(YEAR FROM o.order_date),\n      EXTRACT(QUARTER FROM o.order_date),\n      p.product_name,\n      c.category_name\n  ORDER BY year, quarter, total_revenue DESC;\n",
+    "options": {
+        "tabSize": 4,
+        "indentSize": 4,
+        "insertSpaces": true,
+        "defaultEOL": "LF",
+        "trimAutoWhitespace": true
+    },
+    "viewState": {
+        "cursorState": [
+            {
+                "inSelectionMode": false,
+                "selectionStart": {
+                    "lineNumber": 248,
+                    "column": 1
+                },
+                "position": {
+                    "lineNumber": 248,
+                    "column": 1
+                }
+            }
+        ],
+        "viewState": {
+            "scrollLeft": 0,
+            "firstPosition": {
+                "lineNumber": 247,
+                "column": 1
+            },
+            "firstPositionDeltaTop": -21
+        },
+        "contributionsState": {
+            "editor.contrib.folding": {},
+            "editor.contrib.wordHighlighter": false
+        }
+    },
+    "contexts": [
+        {
+            "state": {
+                "start": 1,
+                "end": 1,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "content": "Welcome to the MySQL Shell - DB Notebook.\n\nPress Ctrl+Enter to execute the code block.\n\nExecute \\sql to switch to SQL, \\js to JavaScript and \\ts to TypeScript mode.\nExecute \\help or \\? for help;",
+                            "language": "ansi"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 6
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 2,
+                "end": 2,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "index": 0,
+                            "resultId": "c44ef4c9-fb98-491c-f71d-c77d30607235",
+                            "content": "OK, 1 row affected in 24.551ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 29
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 3,
+                "end": 3,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "index": 0,
+                            "resultId": "3b4b8fbd-452f-41e3-a8b6-f02dc8c31f50",
+                            "content": "OK, 0 records retrieved in 1.21ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 17
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 4,
+                "end": 9,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "index": 0,
+                            "resultId": "1c866b7f-6fda-4f72-c2ed-0a407e42fc9b",
+                            "content": "OK, 0 records retrieved in 47.094ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 166
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 10,
+                "end": 15,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "index": 0,
+                            "resultId": "571c0e26-6199-4cf3-f982-2db42da7b9aa",
+                            "content": "OK, 0 records retrieved in 47.847ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 185
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 16,
+                "end": 19,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "index": 0,
+                            "resultId": "a01770aa-303e-4ab0-8f45-7e860c7235d2",
+                            "content": "OK, 0 records retrieved in 48.939ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 110
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 20,
+                "end": 25,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "index": 0,
+                            "resultId": "af798a88-8e12-4f16-fb5f-259a6f7b1f2f",
+                            "content": "OK, 0 records retrieved in 48.842ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 178
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 26,
+                "end": 94,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "index": 0,
+                            "resultId": "45d02996-2fa2-4fdb-8bf4-79280ccbf6b7",
+                            "content": "OK, 65 rows affected in 16.335ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 2365
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 95,
+                "end": 100,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "index": 0,
+                            "resultId": "1949ed2d-e826-47d9-8395-60a879ca0522",
+                            "content": "OK, 5 rows affected in 13.969ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 156
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 101,
+                "end": 106,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "index": 0,
+                            "resultId": "5ad1dc80-9cdc-4b91-d2a8-3275bdd6d7b2",
+                            "content": "OK, 5 rows affected in 12.263ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 266
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 107,
+                "end": 117,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "index": 0,
+                            "resultId": "44345d0c-93ab-40d8-dff7-93ceb00fcfd3",
+                            "content": "OK, 10 rows affected in 17.964ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 539
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 118,
+                "end": 118,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "index": 0,
+                            "resultId": "c8194cb5-e316-4d72-c01b-3c2a1f7224d3",
+                            "content": "OK, 0 records retrieved in 49.007ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 50
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 119,
+                "end": 127,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "dba187ad-bc9d-4ff4-8f1f-deca59fb5b6d"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 340
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "d230737b-58a5-4d00-8203-986f1685abeb",
+                    "resultId": "dba187ad-bc9d-4ff4-8f1f-deca59fb5b6d",
+                    "rows": [
+                        {
+                            "0": 2023,
+                            "1": 1,
+                            "2": 3,
+                            "3": "525.50",
+                            "4": "175.17"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 2,
+                            "2": 4,
+                            "3": "876.74",
+                            "4": "219.19"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 3,
+                            "2": 3,
+                            "3": "890.50",
+                            "4": "296.83"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 4,
+                            "2": 4,
+                            "3": "969.24",
+                            "4": "242.31"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 5,
+                            "2": 3,
+                            "3": "945.25",
+                            "4": "315.08"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 6,
+                            "2": 3,
+                            "3": "969.50",
+                            "4": "323.17"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 7,
+                            "2": 3,
+                            "3": "843.75",
+                            "4": "281.25"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 8,
+                            "2": 3,
+                            "3": "1146.75",
+                            "4": "382.25"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 9,
+                            "2": 3,
+                            "3": "988.50",
+                            "4": "329.50"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 10,
+                            "2": 3,
+                            "3": "1111.24",
+                            "4": "370.41"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 11,
+                            "2": 3,
+                            "3": "1100.25",
+                            "4": "366.75"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 12,
+                            "2": 3,
+                            "3": "1357.25",
+                            "4": "452.42"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 1,
+                            "2": 3,
+                            "3": "901.50",
+                            "4": "300.50"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 2,
+                            "2": 3,
+                            "3": "1166.75",
+                            "4": "388.92"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 3,
+                            "2": 3,
+                            "3": "1077.75",
+                            "4": "359.25"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 4,
+                            "2": 3,
+                            "3": "1280.25",
+                            "4": "426.75"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 5,
+                            "2": 3,
+                            "3": "1157.50",
+                            "4": "385.83"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 6,
+                            "2": 3,
+                            "3": "1432.75",
+                            "4": "477.58"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 7,
+                            "2": 3,
+                            "3": "1335.75",
+                            "4": "445.25"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 8,
+                            "2": 3,
+                            "3": "1368.75",
+                            "4": "456.25"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 9,
+                            "2": 3,
+                            "3": "1592.25",
+                            "4": "530.75"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "year",
+                            "field": "0",
+                            "dataType": {
+                                "type": 2,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 5,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INT2"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "month",
+                            "field": "1",
+                            "dataType": {
+                                "type": 1,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 3,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "BOOL",
+                                    "BOOLEAN",
+                                    "INT1"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "order_volume",
+                            "field": "2",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "total_revenue",
+                            "field": "3",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "avg_order_value",
+                            "field": "4",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 21 records retrieved in 11.508ms"
+                    },
+                    "totalRowCount": 21,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT\n      EXTRACT(YEAR FROM order_date) AS year,\n      EXTRACT(MONTH FROM order_date) AS month,\n      COUNT(DISTINCT order_id) AS order_volume,\n      SUM(amount) AS total_revenue,\n      ROUND(AVG(amount), 2) AS avg_order_value\n  FROM orders\n  GROUP BY EXTRACT(YEAR FROM order_date), EXTRACT(MONTH FROM order_date)\n  ORDER BY year, month",
+                    "updatable": false,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 128,
+                "end": 136,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "3c415e9b-06bd-4701-a879-60ad98bc6cf7"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 303
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "d230737b-58a5-4d00-8203-986f1685abeb",
+                    "resultId": "3c415e9b-06bd-4701-a879-60ad98bc6cf7",
+                    "rows": [
+                        {
+                            "0": 1,
+                            "1": 3,
+                            "2": "901.50",
+                            "3": "300.50"
+                        },
+                        {
+                            "0": 2,
+                            "1": 3,
+                            "2": "1166.75",
+                            "3": "388.92"
+                        },
+                        {
+                            "0": 3,
+                            "1": 3,
+                            "2": "1077.75",
+                            "3": "359.25"
+                        },
+                        {
+                            "0": 4,
+                            "1": 3,
+                            "2": "1280.25",
+                            "3": "426.75"
+                        },
+                        {
+                            "0": 5,
+                            "1": 3,
+                            "2": "1157.50",
+                            "3": "385.83"
+                        },
+                        {
+                            "0": 6,
+                            "1": 3,
+                            "2": "1432.75",
+                            "3": "477.58"
+                        },
+                        {
+                            "0": 7,
+                            "1": 3,
+                            "2": "1335.75",
+                            "3": "445.25"
+                        },
+                        {
+                            "0": 8,
+                            "1": 3,
+                            "2": "1368.75",
+                            "3": "456.25"
+                        },
+                        {
+                            "0": 9,
+                            "1": 3,
+                            "2": "1592.25",
+                            "3": "530.75"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "month",
+                            "field": "0",
+                            "dataType": {
+                                "type": 1,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 3,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "BOOL",
+                                    "BOOLEAN",
+                                    "INT1"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "order_volume",
+                            "field": "1",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "total_revenue",
+                            "field": "2",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "avg_order_value",
+                            "field": "3",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 9 records retrieved in 1.059ms"
+                    },
+                    "totalRowCount": 9,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT\n      EXTRACT(MONTH FROM order_date) AS month,\n      COUNT(DISTINCT order_id) AS order_volume,\n      SUM(amount) AS total_revenue,\n      ROUND(AVG(amount), 2) AS avg_order_value\n  FROM orders\n  WHERE EXTRACT(YEAR FROM order_date) = 2024\n  GROUP BY EXTRACT(MONTH FROM order_date)\n  ORDER BY month",
+                    "updatable": false,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 137,
+                "end": 144,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "a45d4b8f-e260-47b8-afc0-791012a06d13"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 254
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "d230737b-58a5-4d00-8203-986f1685abeb",
+                    "resultId": "a45d4b8f-e260-47b8-afc0-791012a06d13",
+                    "rows": [
+                        {
+                            "0": 2023,
+                            "1": 38,
+                            "2": "11724.47",
+                            "3": "308.54"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 27,
+                            "2": "11313.25",
+                            "3": "419.01"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "year",
+                            "field": "0",
+                            "dataType": {
+                                "type": 2,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 5,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INT2"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "total_orders",
+                            "field": "1",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "total_revenue",
+                            "field": "2",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "avg_order_value",
+                            "field": "3",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 2 records retrieved in 0.98ms"
+                    },
+                    "totalRowCount": 2,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT\n      EXTRACT(YEAR FROM order_date) AS year,\n      COUNT(DISTINCT order_id) AS total_orders,\n      SUM(amount) AS total_revenue,\n      ROUND(AVG(amount), 2) AS avg_order_value\n  FROM orders\n  GROUP BY EXTRACT(YEAR FROM order_date)\n  ORDER BY year",
+                    "updatable": false,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 145,
+                "end": 153,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "8329c61b-ed53-4832-cb56-51e82b72f1c0"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 310
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "d230737b-58a5-4d00-8203-986f1685abeb",
+                    "resultId": "8329c61b-ed53-4832-cb56-51e82b72f1c0",
+                    "rows": [
+                        {
+                            "0": 2024,
+                            "1": 9,
+                            "2": "1592.25",
+                            "3": 3
+                        },
+                        {
+                            "0": 2024,
+                            "1": 6,
+                            "2": "1432.75",
+                            "3": 3
+                        },
+                        {
+                            "0": 2024,
+                            "1": 8,
+                            "2": "1368.75",
+                            "3": 3
+                        },
+                        {
+                            "0": 2023,
+                            "1": 12,
+                            "2": "1357.25",
+                            "3": 3
+                        },
+                        {
+                            "0": 2024,
+                            "1": 7,
+                            "2": "1335.75",
+                            "3": 3
+                        },
+                        {
+                            "0": 2024,
+                            "1": 4,
+                            "2": "1280.25",
+                            "3": 3
+                        },
+                        {
+                            "0": 2024,
+                            "1": 2,
+                            "2": "1166.75",
+                            "3": 3
+                        },
+                        {
+                            "0": 2024,
+                            "1": 5,
+                            "2": "1157.50",
+                            "3": 3
+                        },
+                        {
+                            "0": 2023,
+                            "1": 8,
+                            "2": "1146.75",
+                            "3": 3
+                        },
+                        {
+                            "0": 2023,
+                            "1": 10,
+                            "2": "1111.24",
+                            "3": 3
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "year",
+                            "field": "0",
+                            "dataType": {
+                                "type": 2,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 5,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INT2"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "month",
+                            "field": "1",
+                            "dataType": {
+                                "type": 1,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 3,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "BOOL",
+                                    "BOOLEAN",
+                                    "INT1"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "total_revenue",
+                            "field": "2",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "order_volume",
+                            "field": "3",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 10 records retrieved in 1.006ms"
+                    },
+                    "totalRowCount": 10,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT\n      EXTRACT(YEAR FROM order_date) AS year,\n      EXTRACT(MONTH FROM order_date) AS month,\n      SUM(amount) AS total_revenue,\n      COUNT(DISTINCT order_id) AS order_volume\n  FROM orders\n  GROUP BY EXTRACT(YEAR FROM order_date), EXTRACT(MONTH FROM order_date)\n  ORDER BY total_revenue DESC\n  LIMIT 10",
+                    "updatable": false,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 154,
+                "end": 163,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "a5d37e53-f5c9-470c-b395-e3670f939bc8"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 381
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "d230737b-58a5-4d00-8203-986f1685abeb",
+                    "resultId": "a5d37e53-f5c9-470c-b395-e3670f939bc8",
+                    "rows": [
+                        {
+                            "0": 2024,
+                            "1": 1,
+                            "2": 103,
+                            "3": 1,
+                            "4": "378.50"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 1,
+                            "2": 104,
+                            "3": 1,
+                            "4": "289.00"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 1,
+                            "2": 102,
+                            "3": 1,
+                            "4": "234.00"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 2,
+                            "2": 102,
+                            "3": 1,
+                            "4": "523.00"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 2,
+                            "2": 105,
+                            "3": 1,
+                            "4": "445.00"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 2,
+                            "2": 101,
+                            "3": 1,
+                            "4": "198.75"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 3,
+                            "2": 104,
+                            "3": 1,
+                            "4": "412.00"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 3,
+                            "2": 103,
+                            "3": 1,
+                            "4": "367.50"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 3,
+                            "2": 105,
+                            "3": 1,
+                            "4": "298.25"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 4,
+                            "2": 101,
+                            "3": 1,
+                            "4": "534.00"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 4,
+                            "2": 103,
+                            "3": 1,
+                            "4": "456.75"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 4,
+                            "2": 102,
+                            "3": 1,
+                            "4": "289.50"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 5,
+                            "2": 105,
+                            "3": 1,
+                            "4": "512.50"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 5,
+                            "2": 104,
+                            "3": 1,
+                            "4": "378.00"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 5,
+                            "2": 101,
+                            "3": 1,
+                            "4": "267.00"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 6,
+                            "2": 102,
+                            "3": 1,
+                            "4": "598.00"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 6,
+                            "2": 104,
+                            "3": 1,
+                            "4": "445.50"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 6,
+                            "2": 103,
+                            "3": 1,
+                            "4": "389.25"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "year",
+                            "field": "0",
+                            "dataType": {
+                                "type": 2,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 5,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INT2"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "month",
+                            "field": "1",
+                            "dataType": {
+                                "type": 1,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 3,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "BOOL",
+                                    "BOOLEAN",
+                                    "INT1"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "product_id",
+                            "field": "2",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "orders",
+                            "field": "3",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "revenue",
+                            "field": "4",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 18 records retrieved in 1.33ms"
+                    },
+                    "totalRowCount": 18,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT\n      EXTRACT(YEAR FROM order_date) AS year,\n      EXTRACT(MONTH FROM order_date) AS month,\n      product_id,\n      COUNT(DISTINCT order_id) AS orders,\n      SUM(amount) AS revenue\n  FROM orders\n  WHERE order_date BETWEEN '2024-01-01' AND '2024-06-30'\n  GROUP BY EXTRACT(YEAR FROM order_date), EXTRACT(MONTH FROM order_date), product_id\n  ORDER BY year, month, revenue DESC",
+                    "updatable": false,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 164,
+                "end": 173,
+                "language": "mysql",
+                "result": {
+                    "type": "text",
+                    "text": [
+                        {
+                            "type": 2,
+                            "index": 0,
+                            "resultId": "1f72faff-2dd5-4de7-b552-d121961c8820",
+                            "content": "OK, 7 rows affected in 16.737ms"
+                        },
+                        {
+                            "type": 2,
+                            "index": 1,
+                            "resultId": "aecf60a9-5a75-4cd8-fdf1-c2bcaa067b68",
+                            "content": "OK, 7 rows affected in 12.253ms"
+                        },
+                        {
+                            "type": 2,
+                            "index": 2,
+                            "resultId": "15099d7a-bf88-4220-8c03-dc804a1d7b0b",
+                            "content": "OK, 7 rows affected in 13.337ms"
+                        },
+                        {
+                            "type": 2,
+                            "index": 3,
+                            "resultId": "16bb2cd8-6ae0-4f7d-9d32-cad8198390d7",
+                            "content": "OK, 7 rows affected in 16.622ms"
+                        },
+                        {
+                            "type": 2,
+                            "index": 4,
+                            "resultId": "2583c32f-784e-4909-98af-7be0ebf85ca3",
+                            "content": "OK, 7 rows affected in 18.017ms"
+                        },
+                        {
+                            "type": 2,
+                            "index": 5,
+                            "resultId": "58405a26-e7fc-477e-a015-1f4f39ef99de",
+                            "content": "OK, 6 rows affected in 10.969ms"
+                        },
+                        {
+                            "type": 2,
+                            "index": 6,
+                            "resultId": "906e1503-c5b7-4533-d322-8c12ff9fb22a",
+                            "content": "OK, 6 rows affected in 22.601ms"
+                        },
+                        {
+                            "type": 2,
+                            "index": 7,
+                            "resultId": "8cc7ca1d-94a3-494d-843a-42fd676736f3",
+                            "content": "OK, 6 rows affected in 19.049ms"
+                        },
+                        {
+                            "type": 2,
+                            "index": 8,
+                            "resultId": "9d1c8ab6-c551-4bf7-9e88-88f075146a39",
+                            "content": "OK, 6 rows affected in 11.963ms"
+                        },
+                        {
+                            "type": 2,
+                            "index": 9,
+                            "resultId": "b456ec08-5e27-40f9-8319-dc00f7677495",
+                            "content": "OK, 6 rows affected in 11.779ms"
+                        }
+                    ]
+                },
+                "currentHeight": 28,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 80
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 80,
+                            "length": 83
+                        },
+                        "contentStart": 83,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 163,
+                            "length": 83
+                        },
+                        "contentStart": 166,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 246,
+                            "length": 83
+                        },
+                        "contentStart": 249,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 329,
+                            "length": 83
+                        },
+                        "contentStart": 332,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 412,
+                            "length": 79
+                        },
+                        "contentStart": 415,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 491,
+                            "length": 79
+                        },
+                        "contentStart": 494,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 570,
+                            "length": 79
+                        },
+                        "contentStart": 573,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 649,
+                            "length": 79
+                        },
+                        "contentStart": 652,
+                        "state": 0
+                    },
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 728,
+                            "length": 81
+                        },
+                        "contentStart": 731,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        },
+        {
+            "state": {
+                "start": 174,
+                "end": 185,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "1da4a3dc-50c3-415d-9f17-9652cc6345e7"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 517
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "d230737b-58a5-4d00-8203-986f1685abeb",
+                    "resultId": "1da4a3dc-50c3-415d-9f17-9652cc6345e7",
+                    "rows": [
+                        {
+                            "0": 2023,
+                            "1": 1,
+                            "2": "Electronics",
+                            "3": 3,
+                            "4": "525.50",
+                            "5": "175.17"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 2,
+                            "2": "Electronics",
+                            "3": 2,
+                            "4": "346.74",
+                            "5": "173.37"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 2,
+                            "2": "Home & Garden",
+                            "3": 1,
+                            "4": "310.00",
+                            "5": "310.00"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 2,
+                            "2": "Sports",
+                            "3": 1,
+                            "4": "220.00",
+                            "5": "220.00"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 3,
+                            "2": "Electronics",
+                            "3": 2,
+                            "4": "623.50",
+                            "5": "311.75"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 3,
+                            "2": "Sports",
+                            "3": 1,
+                            "4": "267.00",
+                            "5": "267.00"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 4,
+                            "2": "Electronics",
+                            "3": 3,
+                            "4": "624.24",
+                            "5": "208.08"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 4,
+                            "2": "Home & Garden",
+                            "3": 1,
+                            "4": "345.00",
+                            "5": "345.00"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 5,
+                            "2": "Sports",
+                            "3": 1,
+                            "4": "412.50",
+                            "5": "412.50"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 5,
+                            "2": "Electronics",
+                            "3": 1,
+                            "4": "298.75",
+                            "5": "298.75"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 5,
+                            "2": "Home & Garden",
+                            "3": 1,
+                            "4": "234.00",
+                            "5": "234.00"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 6,
+                            "2": "Electronics",
+                            "3": 2,
+                            "4": "645.00",
+                            "5": "322.50"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 6,
+                            "2": "Sports",
+                            "3": 1,
+                            "4": "324.50",
+                            "5": "324.50"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 7,
+                            "2": "Electronics",
+                            "3": 2,
+                            "4": "565.75",
+                            "5": "282.88"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 7,
+                            "2": "Home & Garden",
+                            "3": 1,
+                            "4": "278.00",
+                            "5": "278.00"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 8,
+                            "2": "Electronics",
+                            "3": 1,
+                            "4": "512.00",
+                            "5": "512.00"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 8,
+                            "2": "Home & Garden",
+                            "3": 1,
+                            "4": "345.75",
+                            "5": "345.75"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 8,
+                            "2": "Sports",
+                            "3": 1,
+                            "4": "289.00",
+                            "5": "289.00"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 9,
+                            "2": "Electronics",
+                            "3": 3,
+                            "4": "988.50",
+                            "5": "329.50"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 10,
+                            "2": "Sports",
+                            "3": 1,
+                            "4": "445.00",
+                            "5": "445.00"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 10,
+                            "2": "Electronics",
+                            "3": 1,
+                            "4": "389.99",
+                            "5": "389.99"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 10,
+                            "2": "Home & Garden",
+                            "3": 1,
+                            "4": "276.25",
+                            "5": "276.25"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 11,
+                            "2": "Electronics",
+                            "3": 2,
+                            "4": "832.50",
+                            "5": "416.25"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 11,
+                            "2": "Sports",
+                            "3": 1,
+                            "4": "267.75",
+                            "5": "267.75"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 12,
+                            "2": "Electronics",
+                            "3": 2,
+                            "4": "768.25",
+                            "5": "384.13"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 12,
+                            "2": "Home & Garden",
+                            "3": 1,
+                            "4": "589.00",
+                            "5": "589.00"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 1,
+                            "2": "Sports",
+                            "3": 1,
+                            "4": "378.50",
+                            "5": "378.50"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 1,
+                            "2": "Home & Garden",
+                            "3": 1,
+                            "4": "289.00",
+                            "5": "289.00"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 1,
+                            "2": "Electronics",
+                            "3": 1,
+                            "4": "234.00",
+                            "5": "234.00"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 2,
+                            "2": "Electronics",
+                            "3": 3,
+                            "4": "1166.75",
+                            "5": "388.92"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 3,
+                            "2": "Home & Garden",
+                            "3": 1,
+                            "4": "412.00",
+                            "5": "412.00"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 3,
+                            "2": "Sports",
+                            "3": 1,
+                            "4": "367.50",
+                            "5": "367.50"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 3,
+                            "2": "Electronics",
+                            "3": 1,
+                            "4": "298.25",
+                            "5": "298.25"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 4,
+                            "2": "Electronics",
+                            "3": 2,
+                            "4": "823.50",
+                            "5": "411.75"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 4,
+                            "2": "Sports",
+                            "3": 1,
+                            "4": "456.75",
+                            "5": "456.75"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 5,
+                            "2": "Electronics",
+                            "3": 2,
+                            "4": "779.50",
+                            "5": "389.75"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 5,
+                            "2": "Home & Garden",
+                            "3": 1,
+                            "4": "378.00",
+                            "5": "378.00"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 6,
+                            "2": "Electronics",
+                            "3": 1,
+                            "4": "598.00",
+                            "5": "598.00"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 6,
+                            "2": "Home & Garden",
+                            "3": 1,
+                            "4": "445.50",
+                            "5": "445.50"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 6,
+                            "2": "Sports",
+                            "3": 1,
+                            "4": "389.25",
+                            "5": "389.25"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 7,
+                            "2": "Electronics",
+                            "3": 3,
+                            "4": "1335.75",
+                            "5": "445.25"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 8,
+                            "2": "Home & Garden",
+                            "3": 1,
+                            "4": "567.00",
+                            "5": "567.00"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 8,
+                            "2": "Sports",
+                            "3": 1,
+                            "4": "412.50",
+                            "5": "412.50"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 8,
+                            "2": "Electronics",
+                            "3": 1,
+                            "4": "389.25",
+                            "5": "389.25"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 9,
+                            "2": "Electronics",
+                            "3": 2,
+                            "4": "1079.50",
+                            "5": "539.75"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 9,
+                            "2": "Sports",
+                            "3": 1,
+                            "4": "512.75",
+                            "5": "512.75"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "year",
+                            "field": "0",
+                            "dataType": {
+                                "type": 2,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 5,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INT2"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "month",
+                            "field": "1",
+                            "dataType": {
+                                "type": 1,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 3,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "BOOL",
+                                    "BOOLEAN",
+                                    "INT1"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "category_name",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "order_count",
+                            "field": "3",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "total_revenue",
+                            "field": "4",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "avg_order_value",
+                            "field": "5",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 46 records retrieved in 1.993ms"
+                    },
+                    "totalRowCount": 46,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT\n      EXTRACT(YEAR FROM o.order_date) AS year,\n      EXTRACT(MONTH FROM o.order_date) AS month,\n      c.category_name,\n      COUNT(DISTINCT o.order_id) AS order_count,\n      SUM(o.amount) AS total_revenue,\n      ROUND(AVG(o.amount), 2) AS avg_order_value\n  FROM orders o\n  JOIN products p ON o.product_id = p.product_id\n  JOIN categories c ON p.category_id = c.category_id\n  GROUP BY EXTRACT(YEAR FROM o.order_date), EXTRACT(MONTH FROM o.order_date), c.category_name\n  ORDER BY year, month, total_revenue DESC",
+                    "updatable": false,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 186,
+                "end": 196,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "836d7251-85d8-4e63-c396-b34f2e3e4287"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 465
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "d230737b-58a5-4d00-8203-986f1685abeb",
+                    "resultId": "836d7251-85d8-4e63-c396-b34f2e3e4287",
+                    "rows": [
+                        {
+                            "0": 2023,
+                            "1": 1,
+                            "2": "South",
+                            "3": 1,
+                            "4": "200.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 1,
+                            "2": "East",
+                            "3": 1,
+                            "4": "175.50",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 1,
+                            "2": "North",
+                            "3": 1,
+                            "4": "150.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 2,
+                            "2": "South",
+                            "3": 1,
+                            "4": "310.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 2,
+                            "2": "West",
+                            "3": 1,
+                            "4": "220.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 2,
+                            "2": "North",
+                            "3": 1,
+                            "4": "189.99",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 2,
+                            "2": "East",
+                            "3": 1,
+                            "4": "156.75",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 3,
+                            "2": "West",
+                            "3": 1,
+                            "4": "425.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 3,
+                            "2": "South",
+                            "3": 1,
+                            "4": "267.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 3,
+                            "2": "North",
+                            "3": 1,
+                            "4": "198.50",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 4,
+                            "2": "North",
+                            "3": 1,
+                            "4": "345.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 4,
+                            "2": "East",
+                            "3": 1,
+                            "4": "289.99",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 4,
+                            "2": "South",
+                            "3": 1,
+                            "4": "178.25",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 4,
+                            "2": "West",
+                            "3": 1,
+                            "4": "156.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 5,
+                            "2": "North",
+                            "3": 1,
+                            "4": "412.50",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 5,
+                            "2": "East",
+                            "3": 1,
+                            "4": "298.75",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 5,
+                            "2": "South",
+                            "3": 1,
+                            "4": "234.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 6,
+                            "2": "North",
+                            "3": 1,
+                            "4": "456.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 6,
+                            "2": "South",
+                            "3": 1,
+                            "4": "324.50",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 6,
+                            "2": "West",
+                            "3": 1,
+                            "4": "189.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 7,
+                            "2": "South",
+                            "3": 1,
+                            "4": "398.25",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 7,
+                            "2": "North",
+                            "3": 1,
+                            "4": "278.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 7,
+                            "2": "East",
+                            "3": 1,
+                            "4": "167.50",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 8,
+                            "2": "West",
+                            "3": 1,
+                            "4": "512.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 8,
+                            "2": "South",
+                            "3": 1,
+                            "4": "345.75",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 8,
+                            "2": "North",
+                            "3": 1,
+                            "4": "289.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 9,
+                            "2": "East",
+                            "3": 1,
+                            "4": "423.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 9,
+                            "2": "North",
+                            "3": 1,
+                            "4": "367.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 9,
+                            "2": "West",
+                            "3": 1,
+                            "4": "198.50",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 10,
+                            "2": "South",
+                            "3": 2,
+                            "4": "834.99",
+                            "5": 2
+                        },
+                        {
+                            "0": 2023,
+                            "1": 10,
+                            "2": "North",
+                            "3": 1,
+                            "4": "276.25",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 11,
+                            "2": "East",
+                            "3": 1,
+                            "4": "498.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 11,
+                            "2": "West",
+                            "3": 1,
+                            "4": "334.50",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 11,
+                            "2": "North",
+                            "3": 1,
+                            "4": "267.75",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 12,
+                            "2": "South",
+                            "3": 1,
+                            "4": "589.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 12,
+                            "2": "East",
+                            "3": 1,
+                            "4": "412.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2023,
+                            "1": 12,
+                            "2": "West",
+                            "3": 1,
+                            "4": "356.25",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 1,
+                            "2": "North",
+                            "3": 2,
+                            "4": "523.00",
+                            "5": 2
+                        },
+                        {
+                            "0": 2024,
+                            "1": 1,
+                            "2": "South",
+                            "3": 1,
+                            "4": "378.50",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 2,
+                            "2": "West",
+                            "3": 1,
+                            "4": "523.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 2,
+                            "2": "South",
+                            "3": 1,
+                            "4": "445.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 2,
+                            "2": "East",
+                            "3": 1,
+                            "4": "198.75",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 3,
+                            "2": "South",
+                            "3": 1,
+                            "4": "412.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 3,
+                            "2": "North",
+                            "3": 1,
+                            "4": "367.50",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 3,
+                            "2": "East",
+                            "3": 1,
+                            "4": "298.25",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 4,
+                            "2": "West",
+                            "3": 1,
+                            "4": "534.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 4,
+                            "2": "South",
+                            "3": 1,
+                            "4": "456.75",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 4,
+                            "2": "North",
+                            "3": 1,
+                            "4": "289.50",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 5,
+                            "2": "South",
+                            "3": 1,
+                            "4": "512.50",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 5,
+                            "2": "North",
+                            "3": 1,
+                            "4": "378.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 5,
+                            "2": "East",
+                            "3": 1,
+                            "4": "267.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 6,
+                            "2": "West",
+                            "3": 1,
+                            "4": "598.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 6,
+                            "2": "South",
+                            "3": 1,
+                            "4": "445.50",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 6,
+                            "2": "North",
+                            "3": 1,
+                            "4": "389.25",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 7,
+                            "2": "North",
+                            "3": 1,
+                            "4": "534.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 7,
+                            "2": "West",
+                            "3": 1,
+                            "4": "478.75",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 7,
+                            "2": "East",
+                            "3": 1,
+                            "4": "323.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 8,
+                            "2": "South",
+                            "3": 2,
+                            "4": "801.75",
+                            "5": 2
+                        },
+                        {
+                            "0": 2024,
+                            "1": 8,
+                            "2": "North",
+                            "3": 1,
+                            "4": "567.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 9,
+                            "2": "East",
+                            "3": 1,
+                            "4": "623.00",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 9,
+                            "2": "North",
+                            "3": 1,
+                            "4": "512.75",
+                            "5": 1
+                        },
+                        {
+                            "0": 2024,
+                            "1": 9,
+                            "2": "West",
+                            "3": 1,
+                            "4": "456.50",
+                            "5": 1
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "year",
+                            "field": "0",
+                            "dataType": {
+                                "type": 2,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 5,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INT2"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "month",
+                            "field": "1",
+                            "dataType": {
+                                "type": 1,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 3,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "BOOL",
+                                    "BOOLEAN",
+                                    "INT1"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "region",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "order_count",
+                            "field": "3",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "total_revenue",
+                            "field": "4",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "unique_customers",
+                            "field": "5",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 62 records retrieved in 1.329ms"
+                    },
+                    "totalRowCount": 62,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT\n      EXTRACT(YEAR FROM o.order_date) AS year,\n      EXTRACT(MONTH FROM o.order_date) AS month,\n      cu.region,\n      COUNT(DISTINCT o.order_id) AS order_count,\n      SUM(o.amount) AS total_revenue,\n      COUNT(DISTINCT cu.customer_id) AS unique_customers\n  FROM orders o\n  JOIN customers cu ON o.customer_id = cu.customer_id\n  GROUP BY EXTRACT(YEAR FROM o.order_date), EXTRACT(MONTH FROM o.order_date), cu.region\n  ORDER BY year, month, total_revenue DESC",
+                    "updatable": false,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 197,
+                "end": 209,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "9d71ceda-97fe-43e8-885a-75ac1ddd018e"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 453
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "d230737b-58a5-4d00-8203-986f1685abeb",
+                    "resultId": "9d71ceda-97fe-43e8-885a-75ac1ddd018e",
+                    "rows": [
+                        {
+                            "0": 4,
+                            "1": "Sarah Davis",
+                            "2": "West",
+                            "3": 7,
+                            "4": "2800.00",
+                            "5": "400.00",
+                            "6": "2023-02-03",
+                            "7": "2024-09-18"
+                        },
+                        {
+                            "0": 2,
+                            "1": "Emma Johnson",
+                            "2": "South",
+                            "3": 7,
+                            "4": "2513.24",
+                            "5": "359.03",
+                            "6": "2023-01-12",
+                            "7": "2024-08-28"
+                        },
+                        {
+                            "0": 5,
+                            "1": "David Wilson",
+                            "2": "North",
+                            "3": 7,
+                            "4": "2428.74",
+                            "5": "346.96",
+                            "6": "2023-02-14",
+                            "7": "2024-09-26"
+                        },
+                        {
+                            "0": 6,
+                            "1": "Lisa Anderson",
+                            "2": "South",
+                            "3": 6,
+                            "4": "2336.25",
+                            "5": "389.38",
+                            "6": "2023-02-20",
+                            "7": "2024-06-24"
+                        },
+                        {
+                            "0": 10,
+                            "1": "Jennifer Lopez",
+                            "2": "South",
+                            "3": 6,
+                            "4": "2284.25",
+                            "5": "380.71",
+                            "6": "2023-03-22",
+                            "7": "2024-08-08"
+                        },
+                        {
+                            "0": 1,
+                            "1": "John Smith",
+                            "2": "North",
+                            "3": 7,
+                            "4": "2283.25",
+                            "5": "326.18",
+                            "6": "2023-01-05",
+                            "7": "2024-08-19"
+                        },
+                        {
+                            "0": 3,
+                            "1": "Michael Brown",
+                            "2": "East",
+                            "3": 7,
+                            "4": "2219.74",
+                            "5": "317.11",
+                            "6": "2023-01-18",
+                            "7": "2024-09-09"
+                        },
+                        {
+                            "0": 8,
+                            "1": "Emily Martinez",
+                            "2": "West",
+                            "3": 6,
+                            "4": "2181.50",
+                            "5": "363.58",
+                            "6": "2023-03-08",
+                            "7": "2024-07-16"
+                        },
+                        {
+                            "0": 9,
+                            "1": "Robert Garcia",
+                            "2": "North",
+                            "3": 6,
+                            "4": "2079.00",
+                            "5": "346.50",
+                            "6": "2023-03-15",
+                            "7": "2024-07-27"
+                        },
+                        {
+                            "0": 7,
+                            "1": "James Taylor",
+                            "2": "East",
+                            "3": 6,
+                            "4": "1911.75",
+                            "5": "318.63",
+                            "6": "2023-02-25",
+                            "7": "2024-07-05"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "customer_id",
+                            "field": "0",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "customer_name",
+                            "field": "1",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "region",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "total_orders",
+                            "field": "3",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "lifetime_value",
+                            "field": "4",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "avg_order_value",
+                            "field": "5",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "first_order_date",
+                            "field": "6",
+                            "dataType": {
+                                "type": 27,
+                                "needsQuotes": true
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "last_order_date",
+                            "field": "7",
+                            "dataType": {
+                                "type": 27,
+                                "needsQuotes": true
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 10 records retrieved in 1.663ms"
+                    },
+                    "totalRowCount": 10,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT\n      cu.customer_id,\n      cu.customer_name,\n      cu.region,\n      COUNT(DISTINCT o.order_id) AS total_orders,\n      SUM(o.amount) AS lifetime_value,\n      ROUND(AVG(o.amount), 2) AS avg_order_value,\n      MIN(o.order_date) AS first_order_date,\n      MAX(o.order_date) AS last_order_date\n  FROM customers cu\n  JOIN orders o ON cu.customer_id = o.customer_id\n  GROUP BY cu.customer_id, cu.customer_name, cu.region\n  ORDER BY lifetime_value DESC",
+                    "updatable": false,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 210,
+                "end": 230,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "efbec07a-a1b4-444e-9069-632e66b38c06"
+                    ]
+                },
+                "currentHeight": 36,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 699
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "d230737b-58a5-4d00-8203-986f1685abeb",
+                    "resultId": "efbec07a-a1b4-444e-9069-632e66b38c06",
+                    "rows": [
+                        {
+                            "0": 2023,
+                            "1": 1,
+                            "2": "525.50",
+                            "3": 3,
+                            "4": null,
+                            "5": null
+                        },
+                        {
+                            "0": 2023,
+                            "1": 2,
+                            "2": "876.74",
+                            "3": 4,
+                            "4": "525.50",
+                            "5": "66.84"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 3,
+                            "2": "890.50",
+                            "3": 3,
+                            "4": "876.74",
+                            "5": "1.57"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 4,
+                            "2": "969.24",
+                            "3": 4,
+                            "4": "890.50",
+                            "5": "8.84"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 5,
+                            "2": "945.25",
+                            "3": 3,
+                            "4": "969.24",
+                            "5": "-2.48"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 6,
+                            "2": "969.50",
+                            "3": 3,
+                            "4": "945.25",
+                            "5": "2.57"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 7,
+                            "2": "843.75",
+                            "3": 3,
+                            "4": "969.50",
+                            "5": "-12.97"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 8,
+                            "2": "1146.75",
+                            "3": 3,
+                            "4": "843.75",
+                            "5": "35.91"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 9,
+                            "2": "988.50",
+                            "3": 3,
+                            "4": "1146.75",
+                            "5": "-13.80"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 10,
+                            "2": "1111.24",
+                            "3": 3,
+                            "4": "988.50",
+                            "5": "12.42"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 11,
+                            "2": "1100.25",
+                            "3": 3,
+                            "4": "1111.24",
+                            "5": "-0.99"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 12,
+                            "2": "1357.25",
+                            "3": 3,
+                            "4": "1100.25",
+                            "5": "23.36"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 1,
+                            "2": "901.50",
+                            "3": 3,
+                            "4": "1357.25",
+                            "5": "-33.58"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 2,
+                            "2": "1166.75",
+                            "3": 3,
+                            "4": "901.50",
+                            "5": "29.42"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 3,
+                            "2": "1077.75",
+                            "3": 3,
+                            "4": "1166.75",
+                            "5": "-7.63"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 4,
+                            "2": "1280.25",
+                            "3": 3,
+                            "4": "1077.75",
+                            "5": "18.79"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 5,
+                            "2": "1157.50",
+                            "3": 3,
+                            "4": "1280.25",
+                            "5": "-9.59"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 6,
+                            "2": "1432.75",
+                            "3": 3,
+                            "4": "1157.50",
+                            "5": "23.78"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 7,
+                            "2": "1335.75",
+                            "3": 3,
+                            "4": "1432.75",
+                            "5": "-6.77"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 8,
+                            "2": "1368.75",
+                            "3": 3,
+                            "4": "1335.75",
+                            "5": "2.47"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 9,
+                            "2": "1592.25",
+                            "3": 3,
+                            "4": "1368.75",
+                            "5": "16.33"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "year",
+                            "field": "0",
+                            "dataType": {
+                                "type": 2,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 5,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INT2"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "month",
+                            "field": "1",
+                            "dataType": {
+                                "type": 1,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 3,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "BOOL",
+                                    "BOOLEAN",
+                                    "INT1"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "total_revenue",
+                            "field": "2",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "order_volume",
+                            "field": "3",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "prev_month_revenue",
+                            "field": "4",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "revenue_growth_percent",
+                            "field": "5",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 21 records retrieved in 6.95ms"
+                    },
+                    "totalRowCount": 21,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": "SELECT\n      year,\n      month,\n      total_revenue,\n      order_volume,\n      LAG(total_revenue) OVER (ORDER BY year, month) AS prev_month_revenue,\n      ROUND(\n          ((total_revenue - LAG(total_revenue) OVER (ORDER BY year, month)) /\n          LAG(total_revenue) OVER (ORDER BY year, month) * 100),\n          2\n      ) AS revenue_growth_percent\n  FROM (\n      SELECT\n          EXTRACT(YEAR FROM order_date) AS year,\n          EXTRACT(MONTH FROM order_date) AS month,\n          SUM(amount) AS total_revenue,\n          COUNT(DISTINCT order_id) AS order_volume\n      FROM orders\n      GROUP BY EXTRACT(YEAR FROM order_date), EXTRACT(MONTH FROM order_date)\n  ) monthly_data\n  ORDER BY year, month",
+                    "updatable": true,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 231,
+                "end": 247,
+                "language": "mysql",
+                "result": {
+                    "type": "resultIds",
+                    "list": [
+                        "bec2dec9-3740-422d-a85d-41250ead4855"
+                    ]
+                },
+                "currentHeight": 352,
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 583
+                        },
+                        "contentStart": 1,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": [
+                {
+                    "tabId": "d230737b-58a5-4d00-8203-986f1685abeb",
+                    "resultId": "bec2dec9-3740-422d-a85d-41250ead4855",
+                    "rows": [
+                        {
+                            "0": 2023,
+                            "1": 1,
+                            "2": "Smart Watch",
+                            "3": "Electronics",
+                            "4": 3,
+                            "5": "588.49",
+                            "6": "196.16"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 1,
+                            "2": "Running Shoes",
+                            "3": "Sports",
+                            "4": 2,
+                            "5": "487.00",
+                            "6": "243.50"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 1,
+                            "2": "Wireless Headphones",
+                            "3": "Electronics",
+                            "4": 3,
+                            "5": "482.25",
+                            "6": "160.75"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 1,
+                            "2": "Laptop Stand",
+                            "3": "Electronics",
+                            "4": 1,
+                            "5": "425.00",
+                            "6": "425.00"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 1,
+                            "2": "Coffee Maker",
+                            "3": "Home & Garden",
+                            "4": 1,
+                            "5": "310.00",
+                            "6": "310.00"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 2,
+                            "2": "Running Shoes",
+                            "3": "Sports",
+                            "4": 2,
+                            "5": "737.00",
+                            "6": "368.50"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 2,
+                            "2": "Smart Watch",
+                            "3": "Electronics",
+                            "4": 2,
+                            "5": "612.00",
+                            "6": "306.00"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 2,
+                            "2": "Laptop Stand",
+                            "3": "Electronics",
+                            "4": 2,
+                            "5": "588.74",
+                            "6": "294.37"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 2,
+                            "2": "Coffee Maker",
+                            "3": "Home & Garden",
+                            "4": 2,
+                            "5": "579.00",
+                            "6": "289.50"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 2,
+                            "2": "Wireless Headphones",
+                            "3": "Electronics",
+                            "4": 2,
+                            "5": "367.25",
+                            "6": "183.63"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 3,
+                            "2": "Smart Watch",
+                            "3": "Electronics",
+                            "4": 2,
+                            "5": "879.00",
+                            "6": "439.50"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 3,
+                            "2": "Laptop Stand",
+                            "3": "Electronics",
+                            "4": 2,
+                            "5": "821.25",
+                            "6": "410.63"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 3,
+                            "2": "Coffee Maker",
+                            "3": "Home & Garden",
+                            "4": 2,
+                            "5": "623.75",
+                            "6": "311.88"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 3,
+                            "2": "Wireless Headphones",
+                            "3": "Electronics",
+                            "4": 2,
+                            "5": "366.00",
+                            "6": "183.00"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 3,
+                            "2": "Running Shoes",
+                            "3": "Sports",
+                            "4": 1,
+                            "5": "289.00",
+                            "6": "289.00"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 4,
+                            "2": "Coffee Maker",
+                            "3": "Home & Garden",
+                            "4": 2,
+                            "5": "865.25",
+                            "6": "432.63"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 4,
+                            "2": "Wireless Headphones",
+                            "3": "Electronics",
+                            "4": 2,
+                            "5": "854.25",
+                            "6": "427.13"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 4,
+                            "2": "Laptop Stand",
+                            "3": "Electronics",
+                            "4": 2,
+                            "5": "801.99",
+                            "6": "401.00"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 4,
+                            "2": "Running Shoes",
+                            "3": "Sports",
+                            "4": 2,
+                            "5": "712.75",
+                            "6": "356.38"
+                        },
+                        {
+                            "0": 2023,
+                            "1": 4,
+                            "2": "Smart Watch",
+                            "3": "Electronics",
+                            "4": 1,
+                            "5": "334.50",
+                            "6": "334.50"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 1,
+                            "2": "Smart Watch",
+                            "3": "Electronics",
+                            "4": 2,
+                            "5": "757.00",
+                            "6": "378.50"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 1,
+                            "2": "Running Shoes",
+                            "3": "Sports",
+                            "4": 2,
+                            "5": "746.00",
+                            "6": "373.00"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 1,
+                            "2": "Laptop Stand",
+                            "3": "Electronics",
+                            "4": 2,
+                            "5": "743.25",
+                            "6": "371.63"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 1,
+                            "2": "Coffee Maker",
+                            "3": "Home & Garden",
+                            "4": 2,
+                            "5": "701.00",
+                            "6": "350.50"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 1,
+                            "2": "Wireless Headphones",
+                            "3": "Electronics",
+                            "4": 1,
+                            "5": "198.75",
+                            "6": "198.75"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 2,
+                            "2": "Smart Watch",
+                            "3": "Electronics",
+                            "4": 2,
+                            "5": "887.50",
+                            "6": "443.75"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 2,
+                            "2": "Running Shoes",
+                            "3": "Sports",
+                            "4": 2,
+                            "5": "846.00",
+                            "6": "423.00"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 2,
+                            "2": "Coffee Maker",
+                            "3": "Home & Garden",
+                            "4": 2,
+                            "5": "823.50",
+                            "6": "411.75"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 2,
+                            "2": "Wireless Headphones",
+                            "3": "Electronics",
+                            "4": 2,
+                            "5": "801.00",
+                            "6": "400.50"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 2,
+                            "2": "Laptop Stand",
+                            "3": "Electronics",
+                            "4": 1,
+                            "5": "512.50",
+                            "6": "512.50"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 3,
+                            "2": "Wireless Headphones",
+                            "3": "Electronics",
+                            "4": 2,
+                            "5": "1101.75",
+                            "6": "550.88"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 3,
+                            "2": "Smart Watch",
+                            "3": "Electronics",
+                            "4": 2,
+                            "5": "990.50",
+                            "6": "495.25"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 3,
+                            "2": "Running Shoes",
+                            "3": "Sports",
+                            "4": 2,
+                            "5": "925.25",
+                            "6": "462.63"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 3,
+                            "2": "Laptop Stand",
+                            "3": "Electronics",
+                            "4": 2,
+                            "5": "712.25",
+                            "6": "356.13"
+                        },
+                        {
+                            "0": 2024,
+                            "1": 3,
+                            "2": "Coffee Maker",
+                            "3": "Home & Garden",
+                            "4": 1,
+                            "5": "567.00",
+                            "6": "567.00"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "title": "year",
+                            "field": "0",
+                            "dataType": {
+                                "type": 2,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 5,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INT2"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "quarter",
+                            "field": "1",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "product_name",
+                            "field": "2",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "category_name",
+                            "field": "3",
+                            "dataType": {
+                                "type": 17,
+                                "characterMaximumLength": 65535,
+                                "flags": [
+                                    "BINARY",
+                                    "ASCII",
+                                    "UNICODE"
+                                ],
+                                "needsQuotes": true,
+                                "parameterFormatType": "OneOrZero"
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "orders",
+                            "field": "4",
+                            "dataType": {
+                                "type": 4,
+                                "flags": [
+                                    "SIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 10,
+                                "parameterFormatType": "OneOrZero",
+                                "synonyms": [
+                                    "INTEGER",
+                                    "INT4"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "total_revenue",
+                            "field": "5",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        },
+                        {
+                            "title": "avg_order_value",
+                            "field": "6",
+                            "dataType": {
+                                "type": 10,
+                                "flags": [
+                                    "UNSIGNED",
+                                    "ZEROFILL"
+                                ],
+                                "numericPrecision": 65,
+                                "numericScale": 30,
+                                "parameterFormatType": "TwoOrOneOrZero",
+                                "synonyms": [
+                                    "FIXED",
+                                    "NUMERIC",
+                                    "DEC"
+                                ]
+                            },
+                            "inPK": false,
+                            "nullable": false,
+                            "autoIncrement": false
+                        }
+                    ],
+                    "executionInfo": {
+                        "text": "OK, 35 records retrieved in 1.818ms"
+                    },
+                    "totalRowCount": 35,
+                    "hasMoreRows": false,
+                    "currentPage": 0,
+                    "index": 0,
+                    "sql": " SELECT\n      EXTRACT(YEAR FROM o.order_date) AS year,\n      EXTRACT(QUARTER FROM o.order_date) AS quarter,\n      p.product_name,\n      c.category_name,\n      COUNT(DISTINCT o.order_id) AS orders,\n      SUM(o.amount) AS total_revenue,\n      ROUND(AVG(o.amount), 2) AS avg_order_value\n  FROM orders o\n  JOIN products p ON o.product_id = p.product_id\n  JOIN categories c ON p.category_id = c.category_id\n  GROUP BY\n      EXTRACT(YEAR FROM o.order_date),\n      EXTRACT(QUARTER FROM o.order_date),\n      p.product_name,\n      c.category_name\n  ORDER BY year, quarter, total_revenue DESC",
+                    "updatable": false,
+                    "fullTableName": ""
+                }
+            ]
+        },
+        {
+            "state": {
+                "start": 248,
+                "end": 248,
+                "language": "mysql",
+                "currentSet": 1,
+                "statements": [
+                    {
+                        "delimiter": ";",
+                        "span": {
+                            "start": 0,
+                            "length": 0
+                        },
+                        "contentStart": 0,
+                        "state": 0
+                    }
+                ]
+            },
+            "data": []
+        }
+    ]
+}
